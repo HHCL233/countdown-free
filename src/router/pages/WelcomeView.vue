@@ -47,11 +47,11 @@ initWindow()
 }
 
 .slide-fade-enter-active {
-    transition: all 0.25s ease-out;
+    transition: all 300ms cubic-bezier(0.2, 0, 0, 1);
 }
 
 .slide-fade-leave-active {
-    transition: all 0.25s ease-in-out;
+    transition: all 300ms cubic-bezier(0.2, 0, 1, 1);
 }
 
 .slide-fade-enter-from {

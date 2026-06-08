@@ -12,7 +12,7 @@ export async function createNewWidget(widgetId = 0) {
 
     cardData.allCardData[label] = {
         width: 240,
-        height: 90,
+        height: 240,
         x: 0,
         y: 0,
         widgetTypeId: widgetId,
@@ -27,7 +27,7 @@ export async function createNewWidget(widgetId = 0) {
         url: `/#/widget/${widgetId}`,
         title: 'Widget',
         width: 240,
-        height: 90,
+        height: 240,
         x: 0,
         y: 0,
         decorations: false,
@@ -50,8 +50,8 @@ export async function createNewWidget(widgetId = 0) {
 
 export async function closeWidget(widgetLabel = '') {
     const cardData = useCardDataStore();
-    const { closeWindow } = await useWindow(widgetLabel);
-    closeWindow(true);
+    const { closeWindow } = await useWindow(widgetLabel, true);
+    closeWindow();
     delete cardData.allCardData[widgetLabel]
     return true
 }

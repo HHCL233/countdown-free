@@ -6,6 +6,7 @@ import SettingView from './pages/SettingView.vue'
 import SettingHome from './pages/setting/SettingHome.vue'
 import WelcomeStart from './pages/welcome/WelcomeStart.vue'
 import WelcomeEnd from './pages/welcome/WelcomeEnd.vue'
+import SettingAddCard from './pages/setting/SettingAddCard.vue'
 
 const routes = [
     { path: '/', redirect: '/welcome/0', },
@@ -31,6 +32,14 @@ const routes = [
                     haveMenu: true
                 }
             },
+            {
+                path: 'add-card',
+                component: SettingAddCard,
+                meta: {
+                    menuName: '添加组件',
+                    haveMenu: true
+                }
+            }
         ]
     },
     { path: '/widget/0', component: EasyCountdown },

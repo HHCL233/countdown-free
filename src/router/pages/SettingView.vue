@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
 
+const router = useRouter()
+const route = useRoute()
 const pages = ref('home')
 </script>
 <template>
@@ -8,13 +11,15 @@ const pages = ref('home')
         <mdui-layout class="setting-layout">
             <mdui-navigation-drawer contained open class="setting-drawer">
                 <mdui-list>
-                    <mdui-list-item rounded active>主页</mdui-list-item>
+                    <mdui-list-item rounded
+                        @click="router.push(`${router.currentRoute.value.matched[0].path}/${currentRoute!.path}`)"
+                        v-for="currentRoute in router.currentRoute.value.matched[0].children"
+                        :active="route.path == `${router.currentRoute.value.matched[0].path}/${currentRoute!.path}`">{{
+                            currentRoute!.meta?.menuName ?? '' }}</mdui-list-item>
                 </mdui-list>
             </mdui-navigation-drawer>
             <mdui-layout-main class="setting-main">
-                <Transition name="slide-fade" mode="out-in">
-                    <RouterView />
-                </Transition>
+                <RouterView />
             </mdui-layout-main>
         </mdui-layout>
     </div>
@@ -37,6 +42,7 @@ const pages = ref('home')
 .setting-main {
     margin: 1.5rem;
     box-sizing: border-box;
+    overflow-x: hidden;
 }
 
 .setting-drawer {
@@ -44,11 +50,11 @@ const pages = ref('home')
 }
 
 .slide-fade-enter-active {
-    transition: all 0.25s ease-out;
+    transition: all 300ms cubic-bezier(0.2, 0, 0, 1);
 }
 
 .slide-fade-leave-active {
-    transition: all 0.25s ease-in-out;
+    transition: all 300ms cubic-bezier(0.2, 0, 1, 1);
 }
 
 .slide-fade-enter-from {

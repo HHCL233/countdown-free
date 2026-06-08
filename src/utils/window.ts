@@ -1,17 +1,21 @@
 import { Window } from '@tauri-apps/api/window';
 
-export const useWindow = async (label = 'main') => {
+export const useWindow = async (label = 'main', real = false) => {
     const appMainWindow = new Window(label);
 
     const unlisten = await appMainWindow.onCloseRequested(async (event) => {
         event.preventDefault()
-        await appMainWindow.hide()
+        if (real) {
+            await appMainWindow.destroy()
+        } else {
+            await appMainWindow.hide()
+        }
         return
     })
 
-    const closeWindow = async (real = false) => {
+    const closeWindow = async () => {
         if (real) {
-            await appMainWindow.close()
+            await appMainWindow.destroy()
         } else {
             await appMainWindow.hide()
         }

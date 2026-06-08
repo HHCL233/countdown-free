@@ -4,6 +4,7 @@ import { useWindow } from "./utils/window";
 import { useRoute } from "vue-router";
 import { useCardDataStore } from "./stores/cardData";
 import { useAppStore } from "./stores/app";
+import { initDeepLinkCallback } from "./utils/deepLink";
 // import { invoke } from "@tauri-apps/api/core";
 
 const route = useRoute()
@@ -26,6 +27,7 @@ const initWindow = async () => {
 }
 
 initWindow()
+initDeepLinkCallback()
 /*
 async function greet() {
   // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
@@ -68,11 +70,11 @@ async function greet() {
 }
 
 .slide-fade-enter-active {
-  transition: all 0.25s ease-out;
+  transition: all 300ms cubic-bezier(0.2, 0, 0, 1);
 }
 
 .slide-fade-leave-active {
-  transition: all 0.25s ease-in-out;
+  transition: all 300ms cubic-bezier(0.2, 0, 1, 1);
 }
 
 .slide-fade-enter-from {

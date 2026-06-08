@@ -20,6 +20,8 @@
     "core:app:allow-default-window-icon",
     "process:allow-exit",
     "core:window:allow-set-always-on-top",
-    "notification:default"
+    "notification:default",
+    "core:window:allow-destroy",
+    "deep-link:default"
   ]
 }

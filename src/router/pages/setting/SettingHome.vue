@@ -1,17 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { createNewWidget } from '../../../utils/widget';
-
 const pages = ref('home')
 </script>
 <template>
     <div id="setting-home">
         <h1 class="setting-title">主页</h1>
         <div class="setting-suggest">
-            <mdui-card clickable class="setting-suggest-card" @click="createNewWidget()">
-                <mdui-icon name='auto_awesome' class="setting-suggest-card-icon"></mdui-icon>
-                <span>尝试：新增组件</span>
-            </mdui-card>
         </div>
     </div>
 </template>
@@ -25,6 +19,7 @@ const pages = ref('home')
 .setting-suggest {
     display: flex;
     flex-wrap: wrap;
+    gap: 12px;
 }
 
 .setting-suggest-card {

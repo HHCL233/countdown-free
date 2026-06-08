@@ -34,11 +34,13 @@ export async function createNewWidget(widgetId = 0) {
         transparent: true,
         skipTaskbar: true,
         resizable: false,
-        alwaysOnTop: true
+        alwaysOnTop: true,
+        visible: false
     })
 
     win.once('tauri://created', async () => {
         console.log('窗口创建成功')
+        win.show()
     })
 
     win.once('tauri://error', (e) => {

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { useCardDataStore } from '../../stores/cardData';
 import { closeWidget } from '../../utils/widget';
 import { WebviewWindow } from '@tauri-apps/api/webviewWindow'
@@ -25,13 +25,15 @@ const cardData = useCardDataStore()
 
 const deadLine = ref(0)
 const timeUnit = ref("秒")
-const remainingTime = ref(-1)
+const remainingTime = ref(0)
+
+const ready = ref(false)
 
 const countTimerFn = async (countTimerInterval: number) => {
     deadLine.value = cardData.allCardData[currentWindow.label].param.deadline
     const nowTime = Date.now()
     const tempTime = Math.ceil((deadLine.value - nowTime) / 1000.0)
-    if (tempTime <= 0) {
+    if (tempTime < 0) {
         remainingTime.value = 0
         clearInterval(countTimerInterval)
         let permissionGranted = await isPermissionGranted();
@@ -42,7 +44,7 @@ const countTimerFn = async (countTimerInterval: number) => {
         }
 
         if (permissionGranted) {
-            sendNotification({ title: '吉时已到！', body: '已到达指定的时间。' });
+            sendNotification({ title: '吉时已到！', body: `已到达 ${cardData?.allCardData[currentWindow.label]?.param?.timetip ?? ''} 指定的时间。` });
         }
     }
     if (tempTime >= (24 * 60 * 60)) {
@@ -60,28 +62,28 @@ const countTimerFn = async (countTimerInterval: number) => {
     }
 }
 
-const countTimer = setInterval(async () => {
-    countTimerFn(countTimer)
-}, 250)
-
-onMounted(() => {
-    deadLine.value = cardData.allCardData[currentWindow.label].param.deadline
-    countTimerFn(countTimer)
-})
-
 console.log(currentWindow.label)
 console.log(cardData.allCardData)
 
+const stopWatch = watch(() => cardData?.allCardData[currentWindow.label], async (data) => {
+    if (ready.value || !data) return;
+    ready.value = true
+    const countTimer = setInterval(async () => {
+        await countTimerFn(countTimer)
+    }, 250)
+    await countTimerFn(countTimer)
+    stopWatch()
+}, { immediate: true })
 
 </script>
 <template>
-    <mdui-dropdown trigger="contextmenu" open-on-pointer>
+    <mdui-dropdown trigger="contextmenu" open-on-pointer v-if="ready">
         <mdui-card variant="filled" slot="trigger" :data-tauri-drag-region="isDragMode" class="ez-countdown">
-            <span class="ez-countdown-tip" v-if="remainingTime != 0">距离 {{
-                cardData.allCardData[currentWindow.label].param.timetip }} 还有</span>
-            <span class="ez-countdown-timeleft" v-if="remainingTime != 0">{{ remainingTime }}</span>
-            <span class="ez-countdown-unit" v-if="remainingTime != 0">{{ timeUnit }}</span>
-            <mdui-button class="ez-countdown-close-button" v-if="remainingTime <= 0"
+            <span class="ez-countdown-tip" v-if="remainingTime >= 0">距离 {{
+                cardData.allCardData[currentWindow.label]?.param?.timetip ?? '' }} 还有</span>
+            <span class="ez-countdown-timeleft" v-if="remainingTime >= 0">{{ remainingTime }}</span>
+            <span class="ez-countdown-unit" v-if="remainingTime >= 0">{{ timeUnit }}</span>
+            <mdui-button class="ez-countdown-close-button" v-if="remainingTime < 0"
                 @click="closeWidget(currentWindow.label)">删除卡片</mdui-button>
         </mdui-card>
         <mdui-menu>

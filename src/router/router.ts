@@ -7,6 +7,7 @@ import SettingHome from './pages/setting/SettingHome.vue'
 import WelcomeStart from './pages/welcome/WelcomeStart.vue'
 import WelcomeEnd from './pages/welcome/WelcomeEnd.vue'
 import SettingAddCard from './pages/setting/SettingAddCard.vue'
+import SettingCountdown from './pages/setting/SettingCountdown.vue'
 
 const routes = [
     { path: '/', redirect: '/welcome/0', },
@@ -29,6 +30,14 @@ const routes = [
                 component: SettingHome,
                 meta: {
                     menuName: '主页',
+                    haveMenu: true
+                }
+            },
+            {
+                path: 'countdown',
+                component: SettingCountdown,
+                meta: {
+                    menuName: '倒计时',
                     haveMenu: true
                 }
             },

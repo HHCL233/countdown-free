@@ -4,7 +4,6 @@ import { useRouter, useRoute } from 'vue-router';
 
 const router = useRouter()
 const route = useRoute()
-const pages = ref('home')
 </script>
 <template>
     <div id="setting">

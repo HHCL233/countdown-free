@@ -56,6 +56,7 @@ async function greet() {
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
+  z-index: 5000;
 }
 
 .titlebar-title {

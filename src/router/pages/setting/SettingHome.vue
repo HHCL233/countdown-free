@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-const pages = ref('home')
 </script>
 <template>
     <div id="setting-home">

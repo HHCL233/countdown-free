@@ -12,11 +12,12 @@ const newCardSubmit = (async (event: SubmitEvent) => {
 
     const hour = timeSelectData.get('hour')
     const minute = timeSelectData.get('minute')
+    const second = timeSelectData.get('second')
     const timetip = timeSelectData.get('timetip')
-    const second = timeSelectData.get('timetip')
     if (!hour || !minute || !timetip || !second) return;
 
     await createNewWidget(undefined, (Number(hour) * 60 * 60 + Number(minute) * 60 + Number(second)), String(timetip))
+    console.log(String(timetip))
     addCardDialogIsOpen.value = false
 })
 </script>
@@ -45,7 +46,7 @@ const newCardSubmit = (async (event: SubmitEvent) => {
                 <mdui-text-field label="小时" name="hour" type="number" clearable required></mdui-text-field>
                 <mdui-text-field label="分钟" name="minute" type="number" clearable required></mdui-text-field>
                 <mdui-text-field label="秒" name="second" type="number" clearable required></mdui-text-field>
-                <mdui-text-field label="事件" name="timetip" type="number" clearable required></mdui-text-field>
+                <mdui-text-field label="事件" name="timetip" clearable required></mdui-text-field>
             </form>
         </div>
         <mdui-button slot="action" type="reset" variant="text" form="time-select"

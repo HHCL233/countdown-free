@@ -48,13 +48,13 @@ const countTimerFn = async (countTimerInterval: number) => {
         }
     }
     if (tempTime >= (24 * 60 * 60)) {
-        remainingTime.value = Math.ceil(tempTime / (24 * 60 * 60))
+        remainingTime.value = Math.round(tempTime / (24 * 60 * 60) * 100) / 100
         timeUnit.value = '天'
     } else if (tempTime > (60 * 60)) {
-        remainingTime.value = Math.ceil(tempTime / (60 * 60))
+        remainingTime.value = Math.round(tempTime / (1 * 60 * 60) * 100) / 100
         timeUnit.value = '小时'
     } else if (tempTime >= (60)) {
-        remainingTime.value = Math.ceil(tempTime / (60))
+        remainingTime.value = Math.round(tempTime / (1 * 1 * 60) * 100) / 100
         timeUnit.value = '分钟'
     } else {
         remainingTime.value = tempTime

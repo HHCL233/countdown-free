@@ -24,17 +24,21 @@ const isDragMode = ref(false)
 const cardData = useCardDataStore()
 
 const deadLine = ref(0)
-const timeUnit = ref("秒")
-const remainingTime = ref(0)
+const remainingTime = ref("0秒")
 
 const ready = ref(false)
 
+const isStop = ref(false)
+
 const countTimerFn = async (countTimerInterval: number) => {
-    deadLine.value = cardData.allCardData[currentWindow.label].param.deadline
+    const aCardData = cardData.allCardData[currentWindow.label]
+    deadLine.value = aCardData.param.deadline
     const nowTime = Date.now()
     const tempTime = Math.ceil((deadLine.value - nowTime) / 1000.0)
+    console.log(tempTime < 0)
     if (tempTime < 0) {
-        remainingTime.value = 0
+        remainingTime.value = "0秒"
+        isStop.value = true
         clearInterval(countTimerInterval)
         let permissionGranted = await isPermissionGranted();
 
@@ -44,21 +48,46 @@ const countTimerFn = async (countTimerInterval: number) => {
         }
 
         if (permissionGranted) {
-            sendNotification({ title: '吉时已到！', body: `已到达 ${cardData?.allCardData[currentWindow.label]?.param?.timetip ?? ''} 指定的时间。` });
+            sendNotification({ title: '吉时已到！', body: `已到达 ${aCardData.param?.timetip ?? ''} 指定的时间。` });
         }
     }
-    if (tempTime >= (24 * 60 * 60)) {
-        remainingTime.value = Math.round(tempTime / (24 * 60 * 60) * 100) / 100
-        timeUnit.value = '天'
-    } else if (tempTime > (60 * 60)) {
-        remainingTime.value = Math.round(tempTime / (1 * 60 * 60) * 100) / 100
-        timeUnit.value = '小时'
-    } else if (tempTime >= (60)) {
-        remainingTime.value = Math.round(tempTime / (1 * 1 * 60) * 100) / 100
-        timeUnit.value = '分钟'
+    if (aCardData.param.briefTime) {
+        if (tempTime >= (60 * 60 * 24)) {
+            const day = Math.floor(tempTime / (60 * 60 * 24))
+            remainingTime.value = `${String(day)}天`
+        }
+        else if (tempTime >= (60 * 60)) {
+            const hour = Math.floor(tempTime / (60 * 60))
+            remainingTime.value = `${String(hour)}小时`
+        } else if (tempTime >= (60)) {
+            const minute = Math.floor(tempTime / (60))
+            remainingTime.value = `${String(minute)}分`
+        } else {
+            remainingTime.value = `${String(tempTime)}秒`
+        }
     } else {
-        remainingTime.value = tempTime
-        timeUnit.value = '秒'
+        if (tempTime >= (60 * 60 * 24)) {
+            const leftSec2 = tempTime % (60 * 60 * 24);
+            const leftSec = leftSec2 % 3600;
+            const day = Math.floor(tempTime / (60 * 60 * 24))
+            const hour = Math.floor(leftSec2 / (60 * 60))
+            const minute = Math.floor(leftSec / (60))
+            const second = Math.ceil(leftSec % (60))
+            remainingTime.value = `${String(day).padStart(2, "0")}:${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}:${String(second).padStart(2, "0")}`
+        }
+        else if (tempTime >= (60 * 60)) {
+            const leftSec = tempTime % 3600;
+            const hour = Math.floor(tempTime / (60 * 60))
+            const minute = Math.floor(leftSec / (60))
+            const second = Math.ceil(leftSec % (60))
+            remainingTime.value = `${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}:${String(second).padStart(2, "0")}`
+        } else if (tempTime >= (60)) {
+            const minute = Math.floor(tempTime / (60))
+            const second = Math.ceil(tempTime % (60))
+            remainingTime.value = `${String(minute).padStart(2, "0")}:${String(second).padStart(2, "0")}`
+        } else {
+            remainingTime.value = `00:${String(tempTime).padStart(2, "0")}`
+        }
     }
 }
 
@@ -79,11 +108,10 @@ const stopWatch = watch(() => cardData?.allCardData[currentWindow.label], async 
 <template>
     <mdui-dropdown trigger="contextmenu" open-on-pointer v-if="ready">
         <mdui-card variant="filled" slot="trigger" :data-tauri-drag-region="isDragMode" class="ez-countdown">
-            <span class="ez-countdown-tip" v-if="remainingTime >= 0">距离 {{
+            <span class="ez-countdown-tip" v-if="!isStop">距离 {{
                 cardData.allCardData[currentWindow.label]?.param?.timetip ?? '' }} 还有</span>
-            <span class="ez-countdown-timeleft" v-if="remainingTime >= 0">{{ remainingTime }}</span>
-            <span class="ez-countdown-unit" v-if="remainingTime >= 0">{{ timeUnit }}</span>
-            <mdui-button class="ez-countdown-close-button" v-if="remainingTime < 0"
+            <span class="ez-countdown-timeleft" v-if="!isStop">{{ remainingTime }}</span>
+            <mdui-button class="ez-countdown-close-button" v-if="isStop"
                 @click="closeWidget(currentWindow.label)">删除卡片</mdui-button>
         </mdui-card>
         <mdui-menu>
@@ -119,13 +147,17 @@ const stopWatch = watch(() => cardData?.allCardData[currentWindow.label], async 
 }
 
 .ez-countdown-tip {
-    font-size: 120%;
+    font-size: 140%;
+    position: absolute;
+    top: 16px;
 }
 
 .ez-countdown-timeleft {
-    font-size: 400%;
+    font-size: 240%;
     flex: 1;
-    text-align: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .ez-countdown-unit {

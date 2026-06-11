@@ -56,7 +56,7 @@ async function greet() {
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
-  z-index: 5000;
+  z-index: 2301;
 }
 
 .titlebar-title {
@@ -97,16 +97,20 @@ html {
 body {
   margin: 0;
   height: 100vh;
+  background: transparent !important;
 }
 
 #app {
-  border-radius: var(--mdui-shape-corner-large);
   background-color: rgb(var(--mdui-color-background));
+  border-radius: var(--mdui-shape-corner-large);
+  clip-path: inset(0 round var(--mdui-shape-corner-large));
   height: 100%;
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
+  overflow: hidden;
 }
+
 
 h1,
 h2,

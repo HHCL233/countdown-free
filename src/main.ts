@@ -8,6 +8,7 @@ import { router } from './router/router.ts'
 import 'mdui/mdui.css';
 import 'mdui';
 
+import "@m3e/web/all";
 
 const pinia = createPinia()
 const app = createApp(App)

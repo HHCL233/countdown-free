@@ -14,10 +14,10 @@ const newCardSubmit = (async (event: SubmitEvent) => {
     const minute = timeSelectData.get('minute')
     const second = timeSelectData.get('second')
     const timetip = timeSelectData.get('timetip')
+    const brieftime = timeSelectData.get('brieftime')
     if (!hour || !minute || !timetip || !second) return;
 
-    await createNewWidget(undefined, (Number(hour) * 60 * 60 + Number(minute) * 60 + Number(second)), String(timetip))
-    console.log(String(timetip))
+    await createNewWidget(undefined, (Number(hour) * 60 * 60 + Number(minute) * 60 + Number(second)), String(timetip), Boolean(brieftime))
     addCardDialogIsOpen.value = false
 })
 </script>
@@ -41,12 +41,16 @@ const newCardSubmit = (async (event: SubmitEvent) => {
     </div>
     <mdui-dialog class="add-card-dialog" :open="addCardDialogIsOpen">
         <span slot="headline">添加组件</span>
-        <div slot="description">
+        <div slot="description" class="add-card-dialog-content">
             <form class="time-select" id="time-select" @submit="newCardSubmit" ref="timeSelectFrom">
                 <mdui-text-field label="小时" name="hour" type="number" clearable required></mdui-text-field>
                 <mdui-text-field label="分钟" name="minute" type="number" clearable required></mdui-text-field>
                 <mdui-text-field label="秒" name="second" type="number" clearable required></mdui-text-field>
                 <mdui-text-field label="事件" name="timetip" clearable required></mdui-text-field>
+                <div class="time-select-switch">
+                    <mdui-switch name="brieftime"></mdui-switch>
+                    <span class="time-select-switch-text">简略时间显示</span>
+                </div>
             </form>
         </div>
         <mdui-button slot="action" type="reset" variant="text" form="time-select"
@@ -82,6 +86,10 @@ const newCardSubmit = (async (event: SubmitEvent) => {
     font-size: 48px;
 }
 
+.add-card-dialog-content {
+    overflow-x: hidden;
+}
+
 .time-select {
     user-select: none;
     width: 480px;
@@ -91,5 +99,17 @@ const newCardSubmit = (async (event: SubmitEvent) => {
 
 .time-select-slider {
     width: 100%;
+}
+
+.time-select-switch {
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.time-select-switch-text {
+    flex: 1;
 }
 </style>

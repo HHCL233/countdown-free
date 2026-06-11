@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue';
 
-interface OneCardData {
+export interface OneCardData {
     width: number,
     height: number,
     x: number,
@@ -9,7 +9,8 @@ interface OneCardData {
     widgetTypeId: number,
     param: {
         deadline: number,
-        timetip: string
+        timetip: string,
+        briefTime: boolean
     }
 }
 

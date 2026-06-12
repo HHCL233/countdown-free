@@ -10,7 +10,8 @@ export interface OneCardData {
     param: {
         deadline: number,
         timetip: string,
-        briefTime: boolean
+        briefTime: boolean,
+        startTimestamp: number
     }
 }
 

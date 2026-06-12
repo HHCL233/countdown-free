@@ -2,7 +2,7 @@ import { WebviewWindow } from '@tauri-apps/api/webviewWindow'
 import { useCardDataStore } from '../stores/cardData';
 import { useWindow } from "./window";
 
-export async function createNewWidget(widgetId = 0, time = 30, timetip = "未提供参数", brieftime = false) {
+export async function createNewWidget(widgetId = 0, time = 30, timetip = "未提供参数", brieftime = false, param = {}) {
     const cardData = useCardDataStore()
 
     let label;
@@ -19,7 +19,9 @@ export async function createNewWidget(widgetId = 0, time = 30, timetip = "未提
         param: {
             deadline: Date.now() + time * 1000,
             timetip: timetip,
-            briefTime: brieftime
+            briefTime: brieftime,
+            startTimestamp: Date.now(),
+            ...param
         }
     }
     console.log(cardData.allCardData)

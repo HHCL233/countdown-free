@@ -8,6 +8,7 @@ import WelcomeStart from './pages/welcome/WelcomeStart.vue'
 import WelcomeEnd from './pages/welcome/WelcomeEnd.vue'
 import SettingAddCard from './pages/setting/SettingAddCard.vue'
 import SettingCountdown from './pages/setting/SettingCountdown.vue'
+import CircularCountdown from './widget/CircularCountdown.vue'
 
 const routes = [
     { path: '/', redirect: '/welcome/0', },
@@ -51,7 +52,18 @@ const routes = [
             }
         ]
     },
-    { path: '/widget/0', component: EasyCountdown },
+    {
+        path: '/widget/0',
+        name: 'widgetEasyCountdown',
+        component: EasyCountdown,
+        props: { widgetType: 0 }
+    },
+    {
+        path: '/widget/1',
+        name: 'widgetCircularCountdown',
+        component: CircularCountdown,
+        props: { widgetType: 1 }
+    }
 ]
 
 export const router = createRouter({

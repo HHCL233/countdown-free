@@ -9,6 +9,7 @@ import WelcomeEnd from './pages/welcome/WelcomeEnd.vue'
 import SettingAddCard from './pages/setting/SettingAddCard.vue'
 import SettingCountdown from './pages/setting/SettingCountdown.vue'
 import CircularCountdown from './widget/CircularCountdown.vue'
+import SettingAbout from './pages/setting/SettingAbout.vue'
 
 const routes = [
     { path: '/', redirect: '/welcome/0', },
@@ -47,6 +48,14 @@ const routes = [
                 component: SettingAddCard,
                 meta: {
                     menuName: '添加组件',
+                    haveMenu: true
+                }
+            },
+            {
+                path: 'about',
+                component: SettingAbout,
+                meta: {
+                    menuName: '关于',
                     haveMenu: true
                 }
             }

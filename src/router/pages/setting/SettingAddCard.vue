@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { createNewWidget } from '../../../utils/widget';
+import AddCard from '../../../components/AddCard.vue';
 
 const timeSelectFrom = ref<HTMLFormElement | null>(null)
 const addCardDialogIsOpen = ref(false)
@@ -31,18 +32,8 @@ const openAddCardDialog = (widgetType: number) => {
     <div id="setting-add">
         <h1 class="setting-title">添加组件</h1>
         <div class="setting-add">
-            <mdui-tooltip placement="bottom" content="使用基础倒计时提醒自己">
-                <mdui-card clickable class="setting-add-card" @click="openAddCardDialog(0)">
-                    <mdui-icon name='access_time' class="setting-add-card-icon"></mdui-icon>
-                    <span>基础倒计时</span>
-                </mdui-card>
-            </mdui-tooltip>
-            <mdui-tooltip placement="bottom" content="使用环形倒计时提醒自己">
-                <mdui-card clickable class="setting-add-card" @click="openAddCardDialog(1)">
-                    <mdui-icon name='access_time' class="setting-add-card-icon"></mdui-icon>
-                    <span>环形倒计时</span>
-                </mdui-card>
-            </mdui-tooltip>
+            <AddCard name="基础倒计时" tooltip="使用基础倒计时提醒自己" @click="openAddCardDialog(0)" />
+            <AddCard name="环形倒计时" tooltip="使用环形倒计时提醒自己" @click="openAddCardDialog(1)" />
             <mdui-tooltip placement="bottom" content="暂未开放">
                 <mdui-card clickable class="setting-add-card" disabled>
                     <mdui-icon name='shop' class="setting-add-card-icon"></mdui-icon>

@@ -108,8 +108,10 @@ onUnmounted(() => {
 }
 
 .setting-countdown-progress {
-    height: 360px;
-    width: 360px;
-    font-size: 72px;
+    height: 114px;
+    width: 114px;
+    aspect-ratio: 1/1;
+    font-size: 24px;
+    transform: scale(4);
 }
 </style>

@@ -1,15 +1,17 @@
 import { createWebHashHistory, createRouter } from 'vue-router'
 
 import WelcomeView from './pages/WelcomeView.vue'
-import EasyCountdown from './widget/EasyCountdown.vue'
+import EasyCountdown from './pages/widget/EasyCountdown.vue'
 import SettingView from './pages/SettingView.vue'
 import SettingHome from './pages/setting/SettingHome.vue'
 import WelcomeStart from './pages/welcome/WelcomeStart.vue'
 import WelcomeEnd from './pages/welcome/WelcomeEnd.vue'
 import SettingAddCard from './pages/setting/SettingAddCard.vue'
 import SettingCountdown from './pages/setting/SettingCountdown.vue'
-import CircularCountdown from './widget/CircularCountdown.vue'
+import CircularCountdown from './pages/widget/CircularCountdown.vue'
 import SettingAbout from './pages/setting/SettingAbout.vue'
+import WidgetView from './pages/WidgetView.vue'
+import CustomCountdown from './pages/widget/CustomCountdown.vue'
 
 const routes = [
     { path: '/', redirect: '/welcome/0', },
@@ -62,6 +64,29 @@ const routes = [
         ]
     },
     {
+        name: 'widget', path: '/widget', component: WidgetView, children: [
+            {
+                path: '0',
+                name: 'widgetEasyCountdown',
+                component: EasyCountdown,
+                meta: { widgetType: 0, showName: "基础倒计时", tooltip: "使用基础倒计时提醒自己" }
+            },
+            {
+                path: '1',
+                name: 'widgetCircularCountdown',
+                component: CircularCountdown,
+                meta: { widgetType: 1, showName: "环形倒计时", tooltip: "使用环形倒计时提醒自己" }
+            },
+            {
+                path: '2',
+                name: 'widgetCustom',
+                component: CustomCountdown,
+                meta: { widgetType: 2, showName: "", tooltip: "" }
+            }
+        ]
+    }
+];
+`    {
         path: '/widget/0',
         name: 'widgetEasyCountdown',
         component: EasyCountdown,
@@ -72,8 +97,7 @@ const routes = [
         name: 'widgetCircularCountdown',
         component: CircularCountdown,
         props: { widgetType: 1 }
-    }
-]
+    }`
 
 export const router = createRouter({
     history: createWebHashHistory(),

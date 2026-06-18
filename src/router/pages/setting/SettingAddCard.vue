@@ -2,30 +2,35 @@
 import { ref } from 'vue';
 import { createNewWidget } from '../../../utils/widget';
 import AddCard from '../../../components/AddCard.vue';
+import { useCardDataStore } from '../../../stores/cardData.ts';
 
 const timeSelectFrom = ref<HTMLFormElement | null>(null)
 const addCardDialogIsOpen = ref(false)
 const addWidgetType = ref(0)
+const addCustomWidgetType = ref(0)
+const cardDataStore = useCardDataStore()
 
 const newCardSubmit = (async (event: SubmitEvent) => {
     if (!timeSelectFrom.value) return;
     event.preventDefault()
     const timeSelectData = new FormData(timeSelectFrom.value)
 
-    const hour = timeSelectData.get('hour')
-    const minute = timeSelectData.get('minute')
-    const second = timeSelectData.get('second')
-    const timetip = timeSelectData.get('timetip')
-    const brieftime = timeSelectData.get('brieftime')
+    const formObj = Object.fromEntries(timeSelectData.entries())
+    const { hour, minute, second, timetip, brieftime } = formObj
     if (!hour || !minute || !timetip || !second) return;
 
-    await createNewWidget(addWidgetType.value, (Number(hour) * 60 * 60 + Number(minute) * 60 + Number(second)), String(timetip), Boolean(brieftime))
+    const customData: { [key: string]: any } = {}
+    if (addWidgetType.value == 2) {
+        customData.customWidget = addCustomWidgetType
+    }
+    await createNewWidget(addWidgetType.value, (Number(hour) * 60 * 60 + Number(minute) * 60 + Number(second)), String(timetip), Boolean(brieftime), customData)
     addCardDialogIsOpen.value = false
 })
 
-const openAddCardDialog = (widgetType: number) => {
+const openAddCardDialog = (widgetType: number, CustomWidgetType?: number) => {
     addWidgetType.value = widgetType
     addCardDialogIsOpen.value = true
+    addCustomWidgetType.value = CustomWidgetType ?? 0
 }
 </script>
 <template>
@@ -34,6 +39,9 @@ const openAddCardDialog = (widgetType: number) => {
         <div class="setting-add">
             <AddCard name="基础倒计时" tooltip="使用基础倒计时提醒自己" @click="openAddCardDialog(0)" />
             <AddCard name="环形倒计时" tooltip="使用环形倒计时提醒自己" @click="openAddCardDialog(1)" />
+            <AddCard v-for="customCardData in cardDataStore.customCardDatas" :name="customCardData.name"
+                :tooltip="customCardData.tooltip"
+                @click="openAddCardDialog(2, cardDataStore.customCardDatas.indexOf(customCardData))" />
             <mdui-tooltip placement="bottom" content="暂未开放">
                 <mdui-card clickable class="setting-add-card" disabled>
                     <mdui-icon name='shop' class="setting-add-card-icon"></mdui-icon>

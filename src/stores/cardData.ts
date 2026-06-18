@@ -1,30 +1,17 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue';
-
-export interface OneCardData {
-    width: number,
-    height: number,
-    x: number,
-    y: number,
-    widgetTypeId: number,
-    param: {
-        deadline: number,
-        timetip: string,
-        briefTime: boolean,
-        startTimestamp: number
-    }
-}
-
-interface AllCardData {
-    [key: string]: OneCardData;
-}
+import { CardData, customCardData } from '../type/cardData';
 
 export const useCardDataStore = defineStore('cardData', () => {
-    const allCardData = ref<AllCardData>({})
+    const allCardData = ref<CardData>({})
     const havaTray = ref(false)
 
+    const customCardDatas = ref<customCardData[]>([])
     return {
         havaTray,
-        allCardData
+        allCardData,
+        customCardDatas
     }
 })
+
+export type CardDataStore = ReturnType<typeof useCardDataStore>

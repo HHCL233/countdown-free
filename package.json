@@ -14,15 +14,18 @@
     "@tauri-apps/api": "^2",
     "@tauri-apps/plugin-autostart": "~2.5.1",
     "@tauri-apps/plugin-deep-link": "~2.4.9",
+    "@tauri-apps/plugin-fs": "~2",
     "@tauri-apps/plugin-notification": "~2.3.3",
     "@tauri-apps/plugin-opener": "^2",
     "@tauri-apps/plugin-process": "^2.3.1",
     "@tauri-store/pinia": "^4.2.0",
+    "@vue/compiler-sfc": "^3.5.38",
     "mdui": "^2.1.4",
     "pinia": "^3.0.4",
     "uuid": "^14.0.0",
     "vue": "^3.5.13",
-    "vue-router": "^5.1.0"
+    "vue-router": "^5.1.0",
+    "vue3-sfc-loader": "^0.9.5"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^2",

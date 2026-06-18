@@ -1,9 +1,17 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
+import { PluginManager } from '../../utils/plugin';
+import { useCardDataStore } from '../../stores/cardData';
 
+const cardData = useCardDataStore()
 const router = useRouter()
 const route = useRoute()
+
+onMounted(async () => {
+    const pluginManager = new PluginManager(cardData, router)
+    await pluginManager.initPlugin()
+})
 </script>
 <template>
     <div id="setting">

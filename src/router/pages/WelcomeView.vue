@@ -1,21 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { useWindow } from '../../utils/window';
-
-const hideWindow = ref<() => Promise<void>>()
-
-const initWindow = async () => {
-    const res = await useWindow()
-    hideWindow.value = res.hideWindow
-}
-
-initWindow()
 </script>
 <template>
     <div id="welcome">
-        <Transition name="slide-fade" mode="out-in">
-            <RouterView />
-        </Transition>
+        <router-view v-slot="{ Component }">
+            <transition name="slide-fade" mode="out-in">
+                <component :is="Component" />
+            </transition>
+        </router-view>
     </div>
 </template>
 <style lang="css" scoped>

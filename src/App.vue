@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import { useWindow } from "./utils/window";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useCardDataStore } from "./stores/cardData";
 import { useAppStore } from "./stores/app";
 import { initDeepLinkCallback } from "./utils/deepLink";
 // import { invoke } from "@tauri-apps/api/core";
 
 const route = useRoute()
+const router = useRouter()
 const cardData = useCardDataStore()
 const appStore = useAppStore()
 
@@ -43,9 +44,11 @@ async function greet() {
     <span class="titlebar-title">CountdownFree</span>
   </mdui-card>
   <main class="container">
-    <Transition name="slide-fade" mode="out-in">
-      <RouterView />
-    </Transition>
+    <router-view v-slot="{ Component }">
+      <transition name="slide-fade" mode="out-in">
+        <component :is="Component" />
+      </transition>
+    </router-view>
   </main>
 </template>
 

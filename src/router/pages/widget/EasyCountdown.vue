@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { useCardDataStore } from '../../../stores/cardData';
 import { closeWidget } from '../../../utils/widget';
 import { WebviewWindow } from '@tauri-apps/api/webviewWindow'

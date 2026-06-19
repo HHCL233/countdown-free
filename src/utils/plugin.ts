@@ -1,10 +1,7 @@
 import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { CardData } from "../type/cardData"
-import type { DefineComponent } from 'vue'
-import { defineAsyncComponent } from 'vue'
 import { Router } from 'vue-router';
 import { BaseDirectory, exists, mkdir, readDir, readFile } from "@tauri-apps/plugin-fs";
-import { convertFileSrc } from "@tauri-apps/api/core";
 import { CardDataStore } from "../stores/cardData";
 
 export class PluginManager {
@@ -17,7 +14,7 @@ export class PluginManager {
         this.router = router
     }
 
-    async initPlugin() {
+    initAPI() {
         window.countdownFreeAPI = {
             plugin: [],
             tools: {
@@ -78,6 +75,10 @@ export class PluginManager {
                 }
             }
         }
+    }
+
+    async initPlugin() {
+        this.initAPI()
         await this.loadPlugins()
     }
 

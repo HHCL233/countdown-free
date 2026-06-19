@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { watch, ref, defineAsyncComponent } from 'vue';
+import { watch, ref, defineAsyncComponent, computed } from 'vue';
 import { useCardDataStore } from '../../../stores/cardData';
 import { useWindow } from "../../../utils/window";
 import { WebviewWindow } from '@tauri-apps/api/webviewWindow';
-import AddCard from '../../../components/AddCard.vue';
 import { loadModule } from "vue3-sfc-loader"
-import * as Vue from 'vue'
+import * as Vue from 'vue';
+import { closeWidget } from '../../../utils/widget';
 
 
 const cardDataStore = useCardDataStore()
 const currentWindow = WebviewWindow.getCurrent()
-const currentCardData = ref(cardDataStore?.allCardData[currentWindow.label])
-const customCardData = ref(currentCardData?.value?.param?.customWidget)
+const currentCardData = computed(() => cardDataStore?.allCardData[currentWindow.label])
+const customCardData = computed(() => currentCardData?.value?.param?.customWidget)
 const showMainWindow = ref<() => Promise<void>>()
 const isDragMode = ref(false)
 
@@ -25,12 +25,7 @@ const initWindow = async () => {
 
 initWindow()
 
-const stopWatch = watch(() => cardDataStore?.allCardData[currentWindow.label], async (data) => {
-    currentCardData.value = data
-    customCardData.value = currentCardData?.value?.param?.customWidget
-    console.log(cardDataStore?.customCardDatas[customCardData.value ?? 0]?.component)
-    console.log(AddCard)
-
+const stopWatch = watch(currentCardData, async (data) => {
     load(cardDataStore?.customCardDatas[customCardData.value ?? 0]?.component)
     stopWatch()
 },
@@ -73,5 +68,10 @@ const load = async (content: string) => {
     width: 100vh;
     position: fixed;
     height: 100vh;
+    border-radius: var(--mdui-shape-corner-large);
+}
+
+.custom-countdown * {
+    pointer-events: none;
 }
 </style>

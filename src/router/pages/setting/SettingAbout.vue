@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
 import licensesObject from '../../../assets/licenses/licenses.ts'
 </script>
 <template>

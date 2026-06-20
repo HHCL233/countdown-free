@@ -16,7 +16,6 @@ const showMainWindow = ref<() => Promise<void>>()
 const isDragMode = ref(false)
 
 const remote = ref()
-const name = ref("李四")
 
 const initWindow = async () => {
     const res = await useWindow()

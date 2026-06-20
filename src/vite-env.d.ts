@@ -2,13 +2,11 @@
 import type { CardDataStore } from '@/stores/cardData'
 
 interface Plugin {
-  meta: {
-    name: string,
-    version: string,
-    version_number: number,
-    details: string
-  },
-  init: () => boolean,
+  name: string,
+  description: string,
+  author: string,
+  license?: string,
+  repository?: string
 }
 
 interface Tools {

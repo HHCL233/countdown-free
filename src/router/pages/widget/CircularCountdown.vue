@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref, watch, computed } from 'vue';
 import { useCardDataStore } from '../../../stores/cardData';
 import { closeWidget } from '../../../utils/widget';
 import { WebviewWindow } from '@tauri-apps/api/webviewWindow'
@@ -22,8 +22,7 @@ initWindow()
 const currentWindow = WebviewWindow.getCurrent()
 const isDragMode = ref(false)
 const cardData = useCardDataStore()
-
-const currentCardData = ref(cardData?.allCardData[currentWindow.label])
+const currentCardData = computed(() => cardData?.allCardData[currentWindow.label])
 const deadLine = ref(0)
 const remainingTime = ref("0秒")
 const currentTimestamp = ref(0)
@@ -97,16 +96,15 @@ const countTimerFn = async (countTimerInterval: number) => {
 console.log(currentWindow.label)
 console.log(cardData.allCardData)
 
-const stopWatch = watch(() => cardData?.allCardData[currentWindow.label], async (data) => {
+const stopWatch = watch(currentCardData, async (data) => {
     if (ready.value || !data) return;
-    currentCardData.value = cardData?.allCardData[currentWindow.label]
     ready.value = true
     const countTimer = setInterval(async () => {
         await countTimerFn(countTimer)
     }, 250)
     await countTimerFn(countTimer)
     stopWatch()
-}, { immediate: true })
+}, { immediate: true, deep: true })
 
 </script>
 <template>

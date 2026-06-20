@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref, watch, computed } from 'vue';
 import { useCardDataStore } from '../../../stores/cardData';
 import { closeWidget } from '../../../utils/widget';
 import { WebviewWindow } from '@tauri-apps/api/webviewWindow'
@@ -20,6 +20,7 @@ const initWindow = async () => {
 initWindow()
 
 const currentWindow = WebviewWindow.getCurrent()
+const currentWindowData = computed(() => cardData?.allCardData[currentWindow.label])
 const isDragMode = ref(false)
 const cardData = useCardDataStore()
 
@@ -31,7 +32,7 @@ const ready = ref(false)
 const isStop = ref(false)
 
 const countTimerFn = async (countTimerInterval: number) => {
-    const aCardData = cardData.allCardData[currentWindow.label]
+    const aCardData = currentWindowData.value
     deadLine.value = aCardData.param.deadline
     const nowTime = Date.now()
     const tempTime = Math.ceil((deadLine.value - nowTime) / 1000.0)
@@ -91,10 +92,7 @@ const countTimerFn = async (countTimerInterval: number) => {
     }
 }
 
-console.log(currentWindow.label)
-console.log(cardData.allCardData)
-
-const stopWatch = watch(() => cardData?.allCardData[currentWindow.label], async (data) => {
+const stopWatch = watch(() => currentWindowData, async (data) => {
     if (ready.value || !data) return;
     ready.value = true
     const countTimer = setInterval(async () => {
@@ -102,14 +100,14 @@ const stopWatch = watch(() => cardData?.allCardData[currentWindow.label], async 
     }, 250)
     await countTimerFn(countTimer)
     stopWatch()
-}, { immediate: true })
+}, { immediate: true, deep: true })
 
 </script>
 <template>
     <mdui-dropdown trigger="contextmenu" open-on-pointer v-if="ready">
         <mdui-card variant="filled" slot="trigger" :data-tauri-drag-region="isDragMode" class="ez-countdown">
             <span class="ez-countdown-tip" v-if="!isStop">距离 {{
-                cardData.allCardData[currentWindow.label]?.param?.timetip ?? '' }} 还有</span>
+                currentWindowData?.param?.timetip ?? '' }} 还有</span>
             <span class="ez-countdown-timeleft" v-if="!isStop">{{ remainingTime }}</span>
             <mdui-button class="ez-countdown-close-button" v-if="isStop"
                 @click="closeWidget(currentWindow.label)">删除卡片</mdui-button>

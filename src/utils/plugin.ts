@@ -87,7 +87,6 @@ export class PluginManager {
         const plugin = await import(pluginURL)
         if (isJS) {
             const pluginInstance = new plugin.default()
-            window.countdownFreeAPI.plugin.push(pluginInstance)
             await pluginInstance.init()
         }
     }
@@ -103,11 +102,21 @@ export class PluginManager {
             if (!plugin.isDirectory) continue;
             const pluginName = plugin.name
             console.log("已查找到插件:", plugin)
+
+            const havaPluginsJSON = await exists(`plugins/${pluginName}/plugin.json`, { baseDir: BaseDirectory.AppData });
+            if (!havaPluginsJSON) continue;
+            const pluginsJSONContents = await readFile(`plugins/${pluginName}/plugin.json`, { baseDir: BaseDirectory.AppData });
+            const jsonTextDecoder = new TextDecoder()
+            const pluginJSON = jsonTextDecoder.decode(pluginsJSONContents)
+            window.countdownFreeAPI.plugin.push(JSON.parse(pluginJSON))
+
+
             const havaPluginsJS = await exists(`plugins/${pluginName}/index.js`, { baseDir: BaseDirectory.AppData });
             if (!havaPluginsJS) continue;
             const contents = await readFile(`plugins/${pluginName}/index.js`, { baseDir: BaseDirectory.AppData });
             const textDecoder = new TextDecoder()
             const pluginJS = textDecoder.decode(contents)
+
             const blob = new Blob([pluginJS], { type: "text/javascript" })
             const blobUrl = URL.createObjectURL(blob)
             await this.loadPlugin(blobUrl, true)

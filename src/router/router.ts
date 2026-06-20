@@ -12,6 +12,7 @@ import CircularCountdown from './pages/widget/CircularCountdown.vue'
 import SettingAbout from './pages/setting/SettingAbout.vue'
 import WidgetView from './pages/WidgetView.vue'
 import CustomCountdown from './pages/widget/CustomCountdown.vue'
+import SettingPlugin from './pages/setting/SettingPlugin.vue'
 
 const routes = [
     { path: '/', redirect: '/welcome/0', },
@@ -54,6 +55,14 @@ const routes = [
                 }
             },
             {
+                path: 'plugin',
+                component: SettingPlugin,
+                meta: {
+                    menuName: '插件',
+                    haveMenu: true
+                }
+            },
+            {
                 path: 'about',
                 component: SettingAbout,
                 meta: {
@@ -86,18 +95,6 @@ const routes = [
         ]
     }
 ];
-`    {
-        path: '/widget/0',
-        name: 'widgetEasyCountdown',
-        component: EasyCountdown,
-        props: { widgetType: 0 }
-    },
-    {
-        path: '/widget/1',
-        name: 'widgetCircularCountdown',
-        component: CircularCountdown,
-        props: { widgetType: 1 }
-    }`
 
 export const router = createRouter({
     history: createWebHashHistory(),

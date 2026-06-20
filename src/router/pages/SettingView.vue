@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { PluginManager } from '../../utils/plugin';
 import { useCardDataStore } from '../../stores/cardData';
@@ -7,6 +7,7 @@ import { useCardDataStore } from '../../stores/cardData';
 const cardData = useCardDataStore()
 const router = useRouter()
 const route = useRoute()
+const currentRoute = computed(() => router.currentRoute.value.matched[0])
 
 onMounted(async () => {
     let pluginManager: (PluginManager | null) = new PluginManager(cardData, router)
@@ -19,11 +20,10 @@ onMounted(async () => {
         <mdui-layout class="setting-layout">
             <mdui-navigation-drawer contained open class="setting-drawer">
                 <mdui-list>
-                    <mdui-list-item rounded
-                        @click="router.push(`${router.currentRoute.value.matched[0].path}/${currentRoute!.path}`)"
-                        v-for="currentRoute in router.currentRoute.value.matched[0].children"
-                        :active="route.path == `${router.currentRoute.value.matched[0].path}/${currentRoute!.path}`">{{
-                            currentRoute!.meta?.menuName ?? '' }}</mdui-list-item>
+                    <mdui-list-item rounded @click="router.push(`${currentRoute?.path}/${currentChildrenRoute!.path}`)"
+                        v-for="currentChildrenRoute in currentRoute?.children"
+                        :active="route.path == `${currentRoute?.path}/${currentChildrenRoute!.path}`">{{
+                            currentChildrenRoute!.meta?.menuName ?? '' }}</mdui-list-item>
                 </mdui-list>
             </mdui-navigation-drawer>
             <mdui-layout-main class="setting-main">

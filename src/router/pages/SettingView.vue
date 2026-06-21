@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, onMounted } from 'vue';
-import { useRouter, useRoute } from 'vue-router';
-import { PluginManager } from '../../utils/plugin';
-import { useCardDataStore } from '../../stores/cardData';
+import { computed, onMounted } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import { PluginManager } from '../../utils/plugin'
+import { useCardDataStore } from '../../stores/cardData'
 
 const cardData = useCardDataStore()
 const router = useRouter()
@@ -10,7 +10,7 @@ const route = useRoute()
 const currentRoute = computed(() => router.currentRoute.value.matched[0])
 
 onMounted(async () => {
-    let pluginManager: (PluginManager | null) = new PluginManager(cardData, router)
+    let pluginManager: PluginManager | null = new PluginManager(cardData, router)
     await pluginManager.loadPlugins()
     pluginManager = null
 })
@@ -20,10 +20,15 @@ onMounted(async () => {
         <mdui-layout class="setting-layout">
             <mdui-navigation-drawer contained open class="setting-drawer">
                 <mdui-list>
-                    <mdui-list-item rounded @click="router.push(`${currentRoute?.path}/${currentChildrenRoute!.path}`)"
+                    <mdui-list-item
+                        rounded
+                        @click="router.push(`${currentRoute?.path}/${currentChildrenRoute!.path}`)"
                         v-for="currentChildrenRoute in currentRoute?.children"
-                        :active="route.path == `${currentRoute?.path}/${currentChildrenRoute!.path}`">{{
-                            currentChildrenRoute!.meta?.menuName ?? '' }}</mdui-list-item>
+                        :active="
+                            route.path == `${currentRoute?.path}/${currentChildrenRoute!.path}`
+                        "
+                        >{{ currentChildrenRoute!.meta?.menuName ?? '' }}</mdui-list-item
+                    >
                 </mdui-list>
             </mdui-navigation-drawer>
             <mdui-layout-main class="setting-main">
@@ -69,7 +74,6 @@ onMounted(async () => {
     transform: translateX(320px);
     opacity: 0;
 }
-
 
 .slide-fade-leave-to {
     transform: translateX(-320px);

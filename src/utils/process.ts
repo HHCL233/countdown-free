@@ -1,5 +1,5 @@
-import { exit as exitProcess } from '@tauri-apps/plugin-process';
+import { exit as exitProcess } from '@tauri-apps/plugin-process'
 
 export const exit = async () => {
-    await exitProcess(0);
+    await exitProcess(0)
 }

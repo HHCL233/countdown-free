@@ -1,14 +1,20 @@
 import { WebviewWindow } from '@tauri-apps/api/webviewWindow'
-import { useCardDataStore } from '../stores/cardData';
-import { useWindow } from "./window";
+import { useCardDataStore } from '../stores/cardData'
+import { useWindow } from './window'
 
-export async function createNewWidget(widgetId = 0, time = 30, timetip = "未提供参数", brieftime = false, param = {}) {
+export async function createNewWidget(
+    widgetId = 0,
+    time = 30,
+    timetip = '未提供参数',
+    brieftime = false,
+    param = {},
+) {
     const cardData = useCardDataStore()
 
-    let label;
+    let label
     do {
-        label = `${crypto.randomUUID()}`;
-    } while (cardData.hasOwnProperty(label));
+        label = `${crypto.randomUUID()}`
+    } while (cardData.hasOwnProperty(label))
 
     cardData.allCardData[label] = {
         width: 240,
@@ -21,8 +27,8 @@ export async function createNewWidget(widgetId = 0, time = 30, timetip = "未提
             timetip: timetip,
             briefTime: brieftime,
             startTimestamp: Date.now(),
-            ...param
-        }
+            ...param,
+        },
     }
     console.log(cardData.allCardData)
 
@@ -38,7 +44,7 @@ export async function createNewWidget(widgetId = 0, time = 30, timetip = "未提
         skipTaskbar: true,
         resizable: false,
         alwaysOnTop: true,
-        visible: false
+        visible: false,
     })
 
     win.once('tauri://created', async () => {
@@ -54,9 +60,9 @@ export async function createNewWidget(widgetId = 0, time = 30, timetip = "未提
 }
 
 export async function closeWidget(widgetLabel = '') {
-    const cardData = useCardDataStore();
-    const { closeWindow } = await useWindow(widgetLabel, true);
-    closeWindow();
+    const cardData = useCardDataStore()
+    const { closeWindow } = await useWindow(widgetLabel, true)
+    closeWindow()
     delete cardData.allCardData[widgetLabel]
     return true
 }

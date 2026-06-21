@@ -2,18 +2,18 @@
 const props = defineProps({
     name: {
         type: String,
-        required: true
+        required: true,
     },
     tooltip: {
         type: String,
-        required: false
+        required: false,
     },
 })
 </script>
 <template>
     <mdui-tooltip placement="bottom" :content="tooltip ?? ''">
         <mdui-card clickable class="setting-add-card">
-            <mdui-icon name='access_time' class="setting-add-card-icon"></mdui-icon>
+            <mdui-icon name="access_time" class="setting-add-card-icon"></mdui-icon>
             <span>{{ name }}</span>
         </mdui-card>
     </mdui-tooltip>

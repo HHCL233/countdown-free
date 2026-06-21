@@ -1,19 +1,18 @@
 <script setup lang="ts">
-import { CircularProgress } from 'mdui';
-import { onMounted, onUnmounted, ref } from 'vue';
+import { CircularProgress } from 'mdui'
+import { onMounted, onUnmounted, ref } from 'vue'
 
 const minute = ref(0)
 const second = ref(0)
 const setMinute = ref(0)
 const setSecond = ref(0)
 const isStartCountown = ref(false)
-let countTimerInterval: number | null = null;
-
+let countTimerInterval: number | null = null
 
 const countTimerFn = async () => {
-    if (!countTimerInterval) return;
+    if (!countTimerInterval) return
     const countTimerDelete = () => {
-        if (!countTimerInterval) return;
+        if (!countTimerInterval) return
         clearInterval(countTimerInterval)
         countTimerInterval = null
         isStartCountown.value = false
@@ -38,18 +37,18 @@ const startCountown = () => {
         countTimerInterval = setInterval(() => countTimerFn(), 1000)
     } else {
         stopCountown()
-    };
+    }
 }
 
 const stopCountown = () => {
-    if (!countTimerInterval) return;
+    if (!countTimerInterval) return
     clearInterval(countTimerInterval)
     countTimerInterval = null
     isStartCountown.value = false
 }
 
 onUnmounted(() => {
-    if (!countTimerInterval) return;
+    if (!countTimerInterval) return
     clearInterval(countTimerInterval)
     countTimerInterval = null
 })
@@ -58,20 +57,37 @@ onUnmounted(() => {
     <div id="setting-countdown">
         <h1 class="setting-title">倒计时</h1>
         <div class="setting-dashboard">
-            <m3e-circular-progress-indicator class="setting-countdown-progress"
-                :value="(Number(setMinute) * 60 + Number(setSecond)) - (second + minute * 60)"
-                :max="(Number(setMinute) * 60 + Number(setSecond))" v-if="isStartCountown">{{
-                    `${String(minute).padStart(2,
-                        '0')}:${String(second).padStart(2, '0')}` }}</m3e-circular-progress-indicator>
+            <m3e-circular-progress-indicator
+                class="setting-countdown-progress"
+                :value="Number(setMinute) * 60 + Number(setSecond) - (second + minute * 60)"
+                :max="Number(setMinute) * 60 + Number(setSecond)"
+                v-if="isStartCountown"
+                >{{
+                    `${String(minute).padStart(2, '0')}:${String(second).padStart(2, '0')}`
+                }}</m3e-circular-progress-indicator
+            >
             <div class="setting-countdown-settime" v-else>
-                <mdui-text-field label="分钟" name="minute" type="number" :value="String(setMinute).padStart(2, '0')"
-                    @change="setMinute = Number($event.target.value)" :disabled="isStartCountown"></mdui-text-field>
+                <mdui-text-field
+                    label="分钟"
+                    name="minute"
+                    type="number"
+                    :value="String(setMinute).padStart(2, '0')"
+                    @change="setMinute = Number($event.target.value)"
+                    :disabled="isStartCountown"
+                ></mdui-text-field>
                 <span class="setting-countdown-text">:</span>
-                <mdui-text-field label="秒" name="second" type="number" :value="String(setSecond).padStart(2, '0')"
-                    @change="setSecond = Number($event.target.value)" :disabled="isStartCountown"></mdui-text-field>
+                <mdui-text-field
+                    label="秒"
+                    name="second"
+                    type="number"
+                    :value="String(setSecond).padStart(2, '0')"
+                    @change="setSecond = Number($event.target.value)"
+                    :disabled="isStartCountown"
+                ></mdui-text-field>
             </div>
-            <mdui-button @click="startCountown()">{{ isStartCountown ? '停止' : '开始'
-                }}倒计时</mdui-button>
+            <mdui-button @click="startCountown()"
+                >{{ isStartCountown ? '停止' : '开始' }}倒计时</mdui-button
+            >
         </div>
     </div>
 </template>

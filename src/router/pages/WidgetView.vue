@@ -1,5 +1,4 @@
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 <template>
     <div id="widget">
         <RouterView />
@@ -8,6 +7,5 @@
 <style lang="css" scoped>
 #widget {
     height: 100%;
-
 }
 </style>

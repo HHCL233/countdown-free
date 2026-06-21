@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
-import { useWindow } from "./utils/window";
-import { useRoute, useRouter } from "vue-router";
-import { useCardDataStore } from "./stores/cardData";
-import { useAppStore } from "./stores/app";
-import { initDeepLinkCallback } from "./utils/deepLink";
-import { PluginManager } from "./utils/plugin";
+import { onMounted, ref } from 'vue'
+import { useWindow } from './utils/window'
+import { useRoute, useRouter } from 'vue-router'
+import { useCardDataStore } from './stores/cardData'
+import { useAppStore } from './stores/app'
+import { initDeepLinkCallback } from './utils/deepLink'
+import { PluginManager } from './utils/plugin'
 // import { invoke } from "@tauri-apps/api/core";
 
 const route = useRoute()
@@ -13,22 +13,21 @@ const router = useRouter()
 const cardData = useCardDataStore()
 const appStore = useAppStore()
 
-
 onMounted(async () => {
-  let pluginManager: (PluginManager | null) = new PluginManager(cardData, router)
-  pluginManager.initAPI()
-  pluginManager = null;
-  await cardData.$tauri.start()
-  await appStore.$tauri.start()
+    let pluginManager: PluginManager | null = new PluginManager(cardData, router)
+    pluginManager.initAPI()
+    pluginManager = null
+    await cardData.$tauri.start()
+    await appStore.$tauri.start()
 })
 
 const closeWindow = ref<() => Promise<void>>()
 const minimizeWindow = ref<() => Promise<void>>()
 
 const initWindow = async () => {
-  const res = await useWindow()
-  closeWindow.value = res.closeWindow
-  minimizeWindow.value = res.minimizeWindow
+    const res = await useWindow()
+    closeWindow.value = res.closeWindow
+    minimizeWindow.value = res.minimizeWindow
 }
 
 initWindow()
@@ -43,82 +42,80 @@ async function greet() {
 </script>
 
 <template>
-  <mdui-card class="titlebar" data-tauri-drag-region v-if="(route.path).split('/')[1] != 'widget'">
-    <mdui-button-icon icon="close" @click="closeWindow?.()"></mdui-button-icon>
-    <mdui-button-icon icon="minimize" @click="minimizeWindow?.()"></mdui-button-icon>
-    <span class="titlebar-title">CountdownFree</span>
-  </mdui-card>
-  <main class="container">
-    <router-view v-slot="{ Component }">
-      <transition name="slide-fade" mode="out-in">
-        <component :is="Component" />
-      </transition>
-    </router-view>
-  </main>
+    <mdui-card class="titlebar" data-tauri-drag-region v-if="route.path.split('/')[1] != 'widget'">
+        <mdui-button-icon icon="close" @click="closeWindow?.()"></mdui-button-icon>
+        <mdui-button-icon icon="minimize" @click="minimizeWindow?.()"></mdui-button-icon>
+        <span class="titlebar-title">CountdownFree</span>
+    </mdui-card>
+    <main class="container">
+        <router-view v-slot="{ Component }">
+            <transition name="slide-fade" mode="out-in">
+                <component :is="Component" />
+            </transition>
+        </router-view>
+    </main>
 </template>
 
 <style scoped>
 .titlebar {
-  width: 100%;
-  height: 40px;
-  display: flex;
-  flex-direction: row-reverse;
-  align-items: center;
-  z-index: 2301;
+    width: 100%;
+    height: 40px;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    z-index: 2301;
 }
 
 .titlebar-title {
-  flex: 1;
-  padding-left: 16px;
-  pointer-events: none;
+    flex: 1;
+    padding-left: 16px;
+    pointer-events: none;
 }
 
 .container {
-  height: 100%;
-  overflow-x: hidden;
+    height: 100%;
+    overflow-x: hidden;
 }
 
 .slide-fade-enter-active {
-  transition: all 300ms cubic-bezier(0.2, 0, 0, 1);
+    transition: all 300ms cubic-bezier(0.2, 0, 0, 1);
 }
 
 .slide-fade-leave-active {
-  transition: all 300ms cubic-bezier(0.2, 0, 1, 1);
+    transition: all 300ms cubic-bezier(0.2, 0, 1, 1);
 }
 
 .slide-fade-enter-from {
-  transform: translateX(320px);
-  opacity: 0;
+    transform: translateX(320px);
+    opacity: 0;
 }
 
-
 .slide-fade-leave-to {
-  transform: translateX(-320px);
-  opacity: 0;
+    transform: translateX(-320px);
+    opacity: 0;
 }
 </style>
 <style>
 html {
-  background: transparent !important;
+    background: transparent !important;
 }
 
 body {
-  margin: 0;
-  height: 100vh;
-  background: transparent !important;
+    margin: 0;
+    height: 100vh;
+    background: transparent !important;
 }
 
 #app {
-  background-color: rgb(var(--mdui-color-background));
-  border-radius: var(--mdui-shape-corner-large);
-  clip-path: inset(0 round var(--mdui-shape-corner-large));
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  overflow-x: hidden;
-  overflow: hidden;
+    background-color: rgb(var(--mdui-color-background));
+    border-radius: var(--mdui-shape-corner-large);
+    clip-path: inset(0 round var(--mdui-shape-corner-large));
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow: hidden;
 }
-
 
 h1,
 h2,
@@ -126,11 +123,11 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: normal;
+    font-weight: normal;
 }
 
 * {
-  user-select: none;
-  -webkit-user-select: none;
+    user-select: none;
+    -webkit-user-select: none;
 }
 </style>

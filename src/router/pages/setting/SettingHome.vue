@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref } from 'vue'
 </script>
 <template>
     <div id="setting-home">
         <h1 class="setting-title">主页</h1>
-        <div class="setting-suggest">
-        </div>
+        <div class="setting-suggest"></div>
     </div>
 </template>
 <style lang="css" scoped>
-#setting-home {}
+#setting-home {
+}
 
 .setting-title {
     margin: 0;

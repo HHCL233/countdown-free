@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref } from 'vue'
 const pluginsArray = ref(window.countdownFreeAPI.plugin)
 </script>
 <template>
@@ -38,7 +38,8 @@ const pluginsArray = ref(window.countdownFreeAPI.plugin)
     </div>
 </template>
 <style lang="css" scoped>
-#setting-plugin {}
+#setting-plugin {
+}
 
 .setting-title {
     margin: 0;

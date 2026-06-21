@@ -11,7 +11,9 @@ import licensesObject from '../../../assets/licenses/licenses.ts'
                 <mdui-list-subheader>开源许可证 (不分先后)</mdui-list-subheader>
                 <mdui-collapse accordion>
                     <mdui-collapse-item v-for="license in licensesObject">
-                        <mdui-list-item slot="header" end-icon="arrow_drop_down">{{ license.name }}</mdui-list-item>
+                        <mdui-list-item slot="header" end-icon="arrow_drop_down">{{
+                            license.name
+                        }}</mdui-list-item>
                         <div class="collapse-item-content">
                             <mdui-list-item>{{ license.url }}</mdui-list-item>
                             <mdui-list-item>{{ license.content }}</mdui-list-item>
@@ -23,7 +25,8 @@ import licensesObject from '../../../assets/licenses/licenses.ts'
     </div>
 </template>
 <style lang="css" scoped>
-#setting-about {}
+#setting-about {
+}
 
 .setting-title {
     margin: 0;

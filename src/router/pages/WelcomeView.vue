@@ -1,5 +1,4 @@
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 <template>
     <div id="welcome">
         <router-view v-slot="{ Component }">
@@ -49,7 +48,6 @@
     transform: translateX(320px);
     opacity: 0;
 }
-
 
 .slide-fade-leave-to {
     transform: translateX(-320px);

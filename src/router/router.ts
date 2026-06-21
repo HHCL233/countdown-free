@@ -15,9 +15,11 @@ import CustomCountdown from './pages/widget/CustomCountdown.vue'
 import SettingPlugin from './pages/setting/SettingPlugin.vue'
 
 const routes = [
-    { path: '/', redirect: '/welcome/0', },
+    { path: '/', redirect: '/welcome/0' },
     {
-        path: '/welcome', component: WelcomeView, children: [
+        path: '/welcome',
+        component: WelcomeView,
+        children: [
             {
                 path: '0',
                 component: WelcomeStart,
@@ -26,75 +28,80 @@ const routes = [
                 path: '1',
                 component: WelcomeEnd,
             },
-        ]
+        ],
     },
     {
-        path: '/setting', component: SettingView, children: [
+        path: '/setting',
+        component: SettingView,
+        children: [
             {
                 path: 'home',
                 component: SettingHome,
                 meta: {
                     menuName: '主页',
-                    haveMenu: true
-                }
+                    haveMenu: true,
+                },
             },
             {
                 path: 'countdown',
                 component: SettingCountdown,
                 meta: {
                     menuName: '倒计时',
-                    haveMenu: true
-                }
+                    haveMenu: true,
+                },
             },
             {
                 path: 'add-card',
                 component: SettingAddCard,
                 meta: {
                     menuName: '添加组件',
-                    haveMenu: true
-                }
+                    haveMenu: true,
+                },
             },
             {
                 path: 'plugin',
                 component: SettingPlugin,
                 meta: {
                     menuName: '插件',
-                    haveMenu: true
-                }
+                    haveMenu: true,
+                },
             },
             {
                 path: 'about',
                 component: SettingAbout,
                 meta: {
                     menuName: '关于',
-                    haveMenu: true
-                }
-            }
-        ]
+                    haveMenu: true,
+                },
+            },
+        ],
     },
     {
-        name: 'widget', path: '/widget', component: WidgetView, children: [
+        name: 'widget',
+        path: '/widget',
+        component: WidgetView,
+        children: [
             {
                 path: '0',
                 name: 'widgetEasyCountdown',
                 component: EasyCountdown,
-                meta: { widgetType: 0, showName: "基础倒计时", tooltip: "使用基础倒计时提醒自己" }
+                meta: { widgetType: 0, showName: '基础倒计时', tooltip: '使用基础倒计时提醒自己' },
             },
             {
                 path: '1',
                 name: 'widgetCircularCountdown',
                 component: CircularCountdown,
-                meta: { widgetType: 1, showName: "环形倒计时", tooltip: "使用环形倒计时提醒自己" }
+                meta: { widgetType: 1, showName: '环形倒计时', tooltip: '使用环形倒计时提醒自己' },
             },
             {
                 path: '2',
                 name: 'widgetCustom',
                 component: CustomCountdown,
-                meta: { widgetType: 2, showName: "", tooltip: "" }
-            }
-        ]
-    }
-];
+                meta: { widgetType: 2, showName: '', tooltip: '' },
+            },
+        ],
+    },
+]
 
 export const router = createRouter({
     history: createWebHashHistory(),

@@ -25,3 +25,16 @@ export interface CustomCardData {
 }
 
 export type AnyData = Record<string, any>
+
+export interface WidgetConfigItem {
+    name: string
+    type: string
+    showName: string
+    isRequired: boolean
+}
+
+export type WidgetConfig = {
+    [type: string]: {
+        items: WidgetConfigItem[]
+    }
+}

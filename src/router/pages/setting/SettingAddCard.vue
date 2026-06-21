@@ -4,6 +4,10 @@ import { createNewWidget } from '../../../utils/widget'
 import AddCard from '../../../components/AddCard.vue'
 import { useCardDataStore } from '../../../stores/cardData.ts'
 import { AnyData } from '../../../type/cardData'
+import widgetConfig from '../../../assets/widgets/config.ts'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
 
 const timeSelectFrom = ref<HTMLFormElement | null>(null)
 const addCardDialogIsOpen = ref(false)
@@ -34,10 +38,10 @@ const newCardSubmit = async (event: SubmitEvent) => {
     addCardDialogIsOpen.value = false
 }
 
-const openAddCardDialog = (widgetType: number, CustomWidgetType?: number) => {
+const openAddCardDialog = (widgetType: number, customWidgetType?: number) => {
     addWidgetType.value = widgetType
     addCardDialogIsOpen.value = true
-    addCustomWidgetType.value = CustomWidgetType ?? 0
+    addCustomWidgetType.value = customWidgetType ?? 0
 }
 </script>
 <template>
@@ -73,27 +77,13 @@ const openAddCardDialog = (widgetType: number, CustomWidgetType?: number) => {
         <div slot="description" class="add-card-dialog-content">
             <form class="time-select" id="time-select" @submit="newCardSubmit" ref="timeSelectFrom">
                 <mdui-text-field
-                    label="小时"
-                    name="hour"
-                    type="number"
+                    :label="item.showName"
+                    :name="item.name"
+                    :type="item.type"
                     clearable
-                    required
+                    :required="item.isRequired"
+                    v-for="item in widgetConfig[addWidgetType.toString()].items"
                 ></mdui-text-field>
-                <mdui-text-field
-                    label="分钟"
-                    name="minute"
-                    type="number"
-                    clearable
-                    required
-                ></mdui-text-field>
-                <mdui-text-field
-                    label="秒"
-                    name="second"
-                    type="number"
-                    clearable
-                    required
-                ></mdui-text-field>
-                <mdui-text-field label="事件" name="timetip" clearable required></mdui-text-field>
                 <div class="time-select-switch">
                     <mdui-switch name="brieftime"></mdui-switch>
                     <span class="time-select-switch-text">简略时间显示</span>

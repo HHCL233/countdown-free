@@ -51,7 +51,7 @@ const routes = [
                 },
             },
             {
-                path: 'add-card',
+                path: 'addCard',
                 component: SettingAddCard,
                 meta: {
                     menuName: '添加组件',

@@ -1,12 +1,12 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { CardData, customCardData } from '../type/cardData'
+import { CardData, CustomCardData } from '../type/cardData'
 
 export const useCardDataStore = defineStore('cardData', () => {
     const allCardData = ref<CardData>({})
     const havaTray = ref(false)
 
-    const customCardDatas = ref<customCardData[]>([])
+    const customCardDatas = ref<CustomCardData[]>([])
     return {
         havaTray,
         allCardData,

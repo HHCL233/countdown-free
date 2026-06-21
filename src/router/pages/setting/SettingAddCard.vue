@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { createNewWidget } from '../../../utils/widget'
 import AddCard from '../../../components/AddCard.vue'
 import { useCardDataStore } from '../../../stores/cardData.ts'
+import { AnyData } from '../../../type/cardData'
 
 const timeSelectFrom = ref<HTMLFormElement | null>(null)
 const addCardDialogIsOpen = ref(false)
@@ -19,7 +20,7 @@ const newCardSubmit = async (event: SubmitEvent) => {
     const { hour, minute, second, timetip, brieftime } = formObj
     if (!hour || !minute || !timetip || !second) return
 
-    const customData: { [key: string]: any } = {}
+    const customData: AnyData = {}
     if (addWidgetType.value == 2) {
         customData.customWidget = addCustomWidgetType
     }

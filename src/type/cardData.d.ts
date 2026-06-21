@@ -16,12 +16,12 @@ export interface OneCardData {
     }
 }
 
-export interface CardData {
-    [type: string]: OneCardData
-}
+export type CardData = Record<string, OneCardData>
 
-export interface customCardData {
+export interface CustomCardData {
     name: string
     tooltip: string
     component: string
 }
+
+export type AnyData = Record<string, any>

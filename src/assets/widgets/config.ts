@@ -27,6 +27,12 @@ const config: WidgetConfig = {
                 showName: '事件',
                 isRequired: true,
             },
+            {
+                name: 'brieftime',
+                type: 'boolean',
+                showName: '简略时间显示',
+                isRequired: true,
+            },
         ],
     },
     1: {
@@ -55,6 +61,13 @@ const config: WidgetConfig = {
                 showName: '事件',
                 isRequired: true,
             },
+
+            {
+                name: 'brieftime',
+                type: 'boolean',
+                showName: '简略时间显示',
+                isRequired: true,
+            },
         ],
     },
     2: {
@@ -81,6 +94,12 @@ const config: WidgetConfig = {
                 name: 'timetip',
                 type: 'string',
                 showName: '事件',
+                isRequired: true,
+            },
+            {
+                name: 'brieftime',
+                type: 'boolean',
+                showName: '简略时间显示',
                 isRequired: true,
             },
         ],

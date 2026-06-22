@@ -9,6 +9,7 @@ import {
     requestPermission,
     sendNotification,
 } from '@tauri-apps/plugin-notification'
+import { hourMinuteSecond2Second, smallTimeHandling } from '../../../utils/time'
 
 const showMainWindow = ref<() => Promise<void>>()
 
@@ -26,18 +27,19 @@ const currentCardData = computed(() => cardData?.allCardData[currentWindow.label
 const deadLine = ref(0)
 const remainingTime = ref('0秒')
 const currentTimestamp = ref(0)
+const beginCurrentTimestamp = ref(0)
 
 const ready = ref(false)
 
 const isStop = ref(false)
 
 const countTimerFn = async (countTimerInterval: number) => {
-    const aCardData = currentCardData.value
-    deadLine.value = aCardData.param.deadline
+    const aCardData = currentCardData.value.param
+    if (!aCardData?.hour || !aCardData?.minute || !aCardData?.second) return
+
     const nowTime = Date.now()
     currentTimestamp.value = nowTime
     const tempTime = Math.ceil((deadLine.value - nowTime) / 1000.0)
-    console.log(tempTime < 0)
     if (tempTime < 0) {
         remainingTime.value = '0秒'
         isStop.value = true
@@ -56,42 +58,7 @@ const countTimerFn = async (countTimerInterval: number) => {
             })
         }
     }
-    if (aCardData.param.briefTime) {
-        if (tempTime >= 60 * 60 * 24) {
-            const day = Math.floor(tempTime / (60 * 60 * 24))
-            remainingTime.value = `${String(day)}天`
-        } else if (tempTime >= 60 * 60) {
-            const hour = Math.floor(tempTime / (60 * 60))
-            remainingTime.value = `${String(hour)}小时`
-        } else if (tempTime >= 60) {
-            const minute = Math.floor(tempTime / 60)
-            remainingTime.value = `${String(minute)}分`
-        } else {
-            remainingTime.value = `${String(tempTime)}秒`
-        }
-    } else {
-        if (tempTime >= 60 * 60 * 24) {
-            const leftSec2 = tempTime % (60 * 60 * 24)
-            const leftSec = leftSec2 % 3600
-            const day = Math.floor(tempTime / (60 * 60 * 24))
-            const hour = Math.floor(leftSec2 / (60 * 60))
-            const minute = Math.floor(leftSec / 60)
-            const second = Math.ceil(leftSec % 60)
-            remainingTime.value = `${String(day).padStart(2, '0')}:${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}:${String(second).padStart(2, '0')}`
-        } else if (tempTime >= 60 * 60) {
-            const leftSec = tempTime % 3600
-            const hour = Math.floor(tempTime / (60 * 60))
-            const minute = Math.floor(leftSec / 60)
-            const second = Math.ceil(leftSec % 60)
-            remainingTime.value = `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}:${String(second).padStart(2, '0')}`
-        } else if (tempTime >= 60) {
-            const minute = Math.floor(tempTime / 60)
-            const second = Math.ceil(tempTime % 60)
-            remainingTime.value = `${String(minute).padStart(2, '0')}:${String(second).padStart(2, '0')}`
-        } else {
-            remainingTime.value = `00:${String(tempTime).padStart(2, '0')}`
-        }
-    }
+    remainingTime.value = smallTimeHandling(tempTime, Boolean(aCardData?.param?.briefTime))
 }
 
 console.log(currentWindow.label)
@@ -102,6 +69,15 @@ const stopWatch = watch(
     async (data) => {
         if (ready.value || !data) return
         ready.value = true
+
+        const aCardData = currentCardData.value.param
+        if (!aCardData?.hour || !aCardData?.minute || !aCardData?.second) return
+
+        deadLine.value =
+            Date.now() +
+            hourMinuteSecond2Second(aCardData?.hour, aCardData?.minute, aCardData?.second) * 1000
+        beginCurrentTimestamp.value = Date.now()
+
         const countTimer = setInterval(async () => {
             await countTimerFn(countTimer)
         }, 250)
@@ -125,8 +101,8 @@ const stopWatch = watch(
             <m3e-circular-progress-indicator
                 class="ez-countdown-timeleft"
                 v-if="!isStop"
-                :value="currentTimestamp - currentCardData?.param?.startTimestamp"
-                :max="currentCardData?.param?.deadline - currentCardData?.param?.startTimestamp"
+                :value="currentTimestamp - beginCurrentTimestamp"
+                :max="deadLine - beginCurrentTimestamp"
                 >{{ remainingTime }}</m3e-circular-progress-indicator
             >
             <mdui-button

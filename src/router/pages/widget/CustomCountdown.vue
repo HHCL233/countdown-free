@@ -25,7 +25,7 @@ initWindow()
 
 const stopWatch = watch(
     currentCardData,
-    async (data) => {
+    async () => {
         load(cardDataStore?.customCardDatas[customCardData.value ?? 0]?.component)
         stopWatch()
     },

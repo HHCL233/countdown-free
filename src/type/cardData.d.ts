@@ -7,11 +7,6 @@ export interface OneCardData {
     y: number
     widgetTypeId: number
     param: {
-        deadline: number
-        timetip: string
-        briefTime: boolean
-        startTimestamp: number
-        customWidget?: number
         [type: string]: any
     }
 }

@@ -2,13 +2,7 @@ import { WebviewWindow } from '@tauri-apps/api/webviewWindow'
 import { useCardDataStore } from '../stores/cardData'
 import { useWindow } from './window'
 
-export async function createNewWidget(
-    widgetId = 0,
-    time = 30,
-    timetip = '未提供参数',
-    brieftime = false,
-    param = {},
-) {
+export async function createNewWidget(widgetId = 0, param = {}) {
     const cardData = useCardDataStore()
 
     let label
@@ -23,14 +17,14 @@ export async function createNewWidget(
         y: 0,
         widgetTypeId: widgetId,
         param: {
-            deadline: Date.now() + time * 1000,
+            ...param,
+        },
+    } /*
+    deadline: Date.now() + time * 1000,
             timetip: timetip,
             briefTime: brieftime,
             startTimestamp: Date.now(),
-            ...param,
-        },
-    }
-    console.log(cardData.allCardData)
+            */
 
     const win = new WebviewWindow(label, {
         url: `/#/widget/${widgetId}`,

@@ -6,18 +6,13 @@ export interface Tools {
         y: number
         widgetTypeId: number
         param: {
-            deadline: number
-            timetip: string
-            briefTime: boolean
-            startTimestamp: number
-            customWidget?: number
             [type: string]: any
         }
     }
     registerWidget: (
         widgetComponent: DefineComponent,
         widgetShowName: string,
-    ) => { success: boolean; msg: string; path: string }
+    ) => { success: boolean; msg: string }
     import: (file: string) => any
     importVue: (file: string) => any
 }

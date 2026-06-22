@@ -15,6 +15,7 @@ export class PluginManager {
     }
 
     initAPI() {
+        this.cardDataStore.customCardDatas = []
         window.countdownFreeAPI = {
             plugin: [],
             tools: {
@@ -27,40 +28,13 @@ export class PluginManager {
                     return widgetData
                 },
                 registerWidget: (widgetComponent: string, widgetShowName: string) => {
-                    let randomID = '-1'
-                    const widgetRouters = this.router
-                        .getRoutes()
-                        .filter((currentRouter) => 'widgetType' in currentRouter.meta)
-                    for (let _ = 0; _ <= 100; _++) {
-                        const tempRandomID = Math.floor(Math.random() * 10000).toString()
-                        if (
-                            widgetRouters.some((widgetRouter) => widgetRouter.path == tempRandomID)
-                        ) {
-                            continue
-                        } else {
-                            randomID = tempRandomID
-                            break
-                        }
-                    }
-                    if (randomID == '-1') {
-                        return { success: false, msg: '无可用路由路径', path: '-1' }
-                    }
-                    /**
-                    this.router.addRoute('widget', {
-                        path: randomID,
-                        name: randomID,
-                        component: widgetComponent,
-                        meta: { widgetType: randomID, showName: `${widgetShowName}`, tooltip: `使用${widgetShowName}提醒自己` }
-                    })
-                    **/
-                    console.log(this.cardDataStore)
+                    console.log(this.cardDataStore.customCardDatas)
                     this.cardDataStore.customCardDatas.push({
                         name: widgetShowName,
                         tooltip: `使用${widgetShowName}提醒自己`,
                         component: widgetComponent,
                     })
-                    console.log(this.cardDataStore.customCardDatas)
-                    return { success: true, msg: `创建路由成功`, path: randomID }
+                    return { success: true, msg: `创建路由成功` }
                 },
                 import: async (file: string, isJS = false) => {
                     const contents = await readFile(`plugins/${file}`, {

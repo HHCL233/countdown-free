@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { PluginManager } from '../../utils/plugin'
 import { useCardDataStore } from '../../stores/cardData'

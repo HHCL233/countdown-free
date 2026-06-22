@@ -6,6 +6,7 @@ import { useCardDataStore } from '../../../stores/cardData.ts'
 import { AnyData } from '../../../type/cardData'
 import widgetConfig from '../../../assets/widgets/config.ts'
 import { useRoute } from 'vue-router'
+import { pick } from '../../../utils/obj.ts'
 
 const route = useRoute()
 
@@ -21,20 +22,19 @@ const newCardSubmit = async (event: SubmitEvent) => {
     const timeSelectData = new FormData(timeSelectFrom.value)
 
     const formObj = Object.fromEntries(timeSelectData.entries())
-    const { hour, minute, second, timetip, brieftime } = formObj
-    if (!hour || !minute || !timetip || !second) return
+    const needKeys = widgetConfig[addWidgetType.value.toString()].items.map((item) => item.name)
+    const formKeys = pick(formObj, needKeys)
 
-    const customData: AnyData = {}
+    const customData: AnyData = { ...formKeys }
     if (addWidgetType.value == 2) {
         customData.customWidget = addCustomWidgetType
     }
-    await createNewWidget(
-        addWidgetType.value,
-        Number(hour) * 60 * 60 + Number(minute) * 60 + Number(second),
+    /*
+            Number(hour) * 60 * 60 + Number(minute) * 60 + Number(second),
         String(timetip),
-        Boolean(brieftime),
-        customData,
-    )
+        Boolean(brieftime)
+    */
+    await createNewWidget(addWidgetType.value, customData)
     addCardDialogIsOpen.value = false
 }
 
@@ -82,11 +82,18 @@ const openAddCardDialog = (widgetType: number, customWidgetType?: number) => {
                     :type="item.type"
                     clearable
                     :required="item.isRequired"
-                    v-for="item in widgetConfig[addWidgetType.toString()].items"
+                    v-for="item in widgetConfig[addWidgetType.toString()].items.filter(
+                        (item) => item.type != 'boolean',
+                    )"
                 ></mdui-text-field>
-                <div class="time-select-switch">
-                    <mdui-switch name="brieftime"></mdui-switch>
-                    <span class="time-select-switch-text">简略时间显示</span>
+                <div
+                    class="time-select-switch"
+                    v-for="item in widgetConfig[addWidgetType.toString()].items.filter(
+                        (item) => item.type == 'boolean',
+                    )"
+                >
+                    <mdui-switch :name="item.name"></mdui-switch>
+                    <span class="time-select-switch-text">{{ item.showName }}</span>
                 </div>
             </form>
         </div>

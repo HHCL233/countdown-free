@@ -36,7 +36,7 @@ export class PluginManager {
                     })
                     return { success: true, msg: `创建路由成功` }
                 },
-                import: async (file: string, isJS = false) => {
+                import: async (file: string, isInit = false) => {
                     const contents = await readFile(`plugins/${file}`, {
                         baseDir: BaseDirectory.AppData,
                     })
@@ -44,7 +44,7 @@ export class PluginManager {
                     const pluginJS = textDecoder.decode(contents)
                     const blob = new Blob([pluginJS], { type: 'text/javascript' })
                     const blobUrl = URL.createObjectURL(blob)
-                    const importContent = await this.loadPlugin(blobUrl, isJS)
+                    const importContent = await this.loadPlugin(blobUrl, isInit)
                     URL.revokeObjectURL(blobUrl)
                     return importContent
                 },

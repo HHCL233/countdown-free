@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { createNewWidget } from '../../../utils/widget'
-import AddCard from '../../../components/AddCard.vue'
+import AddWidgetCard from '../../../components/setting/addCard/AddWidgetCard.vue'
 import { useCardDataStore } from '../../../stores/cardData.ts'
 import { AnyData } from '../../../type/cardData'
 import widgetConfig from '../../../assets/widgets/config.ts'
@@ -48,17 +48,17 @@ const openAddCardDialog = (widgetType: number, customWidgetType?: number) => {
     <div id="setting-add">
         <h1 class="setting-title">添加组件</h1>
         <div class="setting-add">
-            <AddCard
+            <AddWidgetCard
                 name="基础倒计时"
                 tooltip="使用基础倒计时提醒自己"
                 @click="openAddCardDialog(0)"
             />
-            <AddCard
+            <AddWidgetCard
                 name="环形倒计时"
                 tooltip="使用环形倒计时提醒自己"
                 @click="openAddCardDialog(1)"
             />
-            <AddCard
+            <AddWidgetCard
                 v-for="customCardData in cardDataStore.customCardDatas"
                 :name="customCardData.name"
                 :tooltip="customCardData.tooltip"

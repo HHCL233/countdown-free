@@ -13,6 +13,6 @@ export interface Tools {
         widgetComponent: DefineComponent,
         widgetShowName: string,
     ) => { success: boolean; msg: string }
-    import: (file: string) => any
+    import: (file: string, isInit: boolean) => any
     importVue: (file: string) => any
 }

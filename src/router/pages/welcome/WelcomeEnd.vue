@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
+import { useAppStore } from '../../../stores/app'
 
 const router = useRouter()
+const appState = useAppStore()
 </script>
 <template>
     <div class="welcome-once">
         <h1 class="welcome-title">设置完毕</h1>
-        <p>体验激动人心的CountdownFree吧！</p>
+        <p>体验激动人心的{{ appState.appName }}吧！</p>
         <div class="operation">
             <mdui-button @click="router.push('/setting/home')">开始</mdui-button>
             <mdui-button @click="router.push('/welcome/0')" variant="text">返回</mdui-button>

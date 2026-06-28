@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
+import { useAppStore } from '../../../stores/app'
 
 const router = useRouter()
+const appState = useAppStore()
 </script>
 <template>
     <div class="welcome-once">
-        <h1 class="welcome-title">Welcome to CountdownFree!</h1>
+        <h1 class="welcome-title">Welcome to {{ appState.appName }}!</h1>
         <p>从此开启你的倒计时之旅</p>
         <div class="operation">
             <mdui-button @click="router.push('/welcome/1')">继续</mdui-button>

@@ -4,8 +4,10 @@ import { useWindow } from './utils/window'
 import { useRoute } from 'vue-router'
 import { initDeepLinkCallback } from './utils/deepLink'
 import { runInit } from './utils/init'
+import { useAppStore } from './stores/app'
 
 const route = useRoute()
+const appState = useAppStore()
 
 onMounted(async () => {
     runInit()
@@ -28,7 +30,7 @@ initDeepLinkCallback()
     <mdui-card class="titlebar" data-tauri-drag-region v-if="route.path.split('/')[1] != 'widget'">
         <mdui-button-icon icon="close" @click="closeWindow?.()"></mdui-button-icon>
         <mdui-button-icon icon="minimize" @click="minimizeWindow?.()"></mdui-button-icon>
-        <span class="titlebar-title">CountdownFree</span>
+        <span class="titlebar-title">{{ appState.appName }}</span>
     </mdui-card>
     <main class="container">
         <router-view v-slot="{ Component }">

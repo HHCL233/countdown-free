@@ -1,19 +1,10 @@
 <script setup lang="ts">
-import { computed, onMounted, watch } from 'vue'
+import { computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { PluginManager } from '../../utils/plugin'
-import { useCardDataStore } from '../../stores/cardData'
 
-const cardData = useCardDataStore()
 const router = useRouter()
 const route = useRoute()
 const currentRoute = computed(() => router.currentRoute.value.matched[0])
-
-onMounted(async () => {
-    let pluginManager: PluginManager | null = new PluginManager(cardData, router)
-    await pluginManager.loadPlugins()
-    pluginManager = null
-})
 </script>
 <template>
     <div id="setting">

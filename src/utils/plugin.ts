@@ -1,17 +1,20 @@
 import { getCurrentWebviewWindow } from '@tauri-apps/api/webviewWindow'
-import { CardData } from '../type/cardData'
+import { CardData, WidgetConfigItem } from '../type/cardData'
 import { Router } from 'vue-router'
 import { BaseDirectory, exists, mkdir, readDir, readFile } from '@tauri-apps/plugin-fs'
 import { CardDataStore } from '../stores/cardData'
+import { NewWidgetStore } from '../stores/newWidget'
 
 export class PluginManager {
     cardData: CardData
     cardDataStore: CardDataStore
     router: Router
-    constructor(cardDataStore: CardDataStore, router: Router) {
+    newWidgetStore: NewWidgetStore
+    constructor(cardDataStore: CardDataStore, router: Router, newWidgetStore: NewWidgetStore) {
         this.cardDataStore = cardDataStore
         this.cardData = cardDataStore.allCardData
         this.router = router
+        this.newWidgetStore = newWidgetStore
     }
 
     initAPI() {
@@ -27,13 +30,24 @@ export class PluginManager {
                     }
                     return widgetData
                 },
-                registerWidget: (widgetComponent: string, widgetShowName: string) => {
-                    console.log(this.cardDataStore.customCardDatas)
+                registerWidget: (
+                    widgetComponent: string,
+                    widgetShowName: string,
+                    widgetParam: WidgetConfigItem[],
+                ) => {
+                    const pluginWidgetObjectLength = Object.values(
+                        this.newWidgetStore.pluginWidget,
+                    ).length
+                    this.newWidgetStore.pluginWidget[pluginWidgetObjectLength] = {
+                        items: widgetParam,
+                    }
+
                     this.cardDataStore.customCardDatas.push({
                         name: widgetShowName,
                         tooltip: `使用${widgetShowName}提醒自己`,
                         component: widgetComponent,
                     })
+
                     return { success: true, msg: `创建路由成功` }
                 },
                 import: async (file: string, isInit = false) => {

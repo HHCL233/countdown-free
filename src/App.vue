@@ -1,26 +1,14 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useWindow } from './utils/window'
-import { useRoute, useRouter } from 'vue-router'
-import { useCardDataStore } from './stores/cardData'
-import { useAppStore } from './stores/app'
+import { useRoute } from 'vue-router'
 import { initDeepLinkCallback } from './utils/deepLink'
-import { PluginManager } from './utils/plugin'
-import { denySave } from '@tauri-store/pinia'
-// import { invoke } from "@tauri-apps/api/core";
+import { runInit } from './utils/init'
 
 const route = useRoute()
-const router = useRouter()
-const cardData = useCardDataStore()
-const appStore = useAppStore()
 
 onMounted(async () => {
-    let pluginManager: PluginManager | null = new PluginManager(cardData, router)
-    pluginManager.initAPI()
-    pluginManager = null
-    await denySave('cardData')
-    await cardData.$tauri.start()
-    await appStore.$tauri.start()
+    runInit()
 })
 
 const closeWindow = ref<() => Promise<void>>()
@@ -34,12 +22,6 @@ const initWindow = async () => {
 
 initWindow()
 initDeepLinkCallback()
-/*
-async function greet() {
-  // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-  greetMsg.value = await invoke("greet", { name: name.value });
-}
-*/
 </script>
 
 <template>

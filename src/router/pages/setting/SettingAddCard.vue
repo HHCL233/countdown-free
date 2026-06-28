@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { createNewWidget } from '../../../utils/widget'
 import AddWidgetCard from '../../../components/setting/addCard/AddWidgetCard.vue'
 import { useCardDataStore } from '../../../stores/cardData.ts'
 import { AnyData } from '../../../type/cardData'
-import widgetConfig from '../../../assets/widgets/config.ts'
-import { useRoute } from 'vue-router'
 import { pick } from '../../../utils/obj.ts'
-
-const route = useRoute()
+import { useNewWidgetStore } from '../../../stores/newWidget.ts'
 
 const timeSelectFrom = ref<HTMLFormElement | null>(null)
 const addCardDialogIsOpen = ref(false)
 const addWidgetType = ref(0)
 const addCustomWidgetType = ref(0)
 const cardDataStore = useCardDataStore()
+const newWidgetStore = useNewWidgetStore()
+const widgetConfig = computed(() => newWidgetStore.vanillaWidget)
+const pluginWidgetConfig = computed(() => newWidgetStore.pluginWidget)
 
 const newCardSubmit = async (event: SubmitEvent) => {
     if (!timeSelectFrom.value) return
@@ -22,18 +22,14 @@ const newCardSubmit = async (event: SubmitEvent) => {
     const timeSelectData = new FormData(timeSelectFrom.value)
 
     const formObj = Object.fromEntries(timeSelectData.entries())
-    const needKeys = widgetConfig[addWidgetType.value.toString()].items.map((item) => item.name)
+    const needKeys = widgetConfig.value[addWidgetType.value].items.map((item) => item.name)
     const formKeys = pick(formObj, needKeys)
 
     const customData: AnyData = { ...formKeys }
     if (addWidgetType.value == 2) {
         customData.customWidget = addCustomWidgetType
     }
-    /*
-            Number(hour) * 60 * 60 + Number(minute) * 60 + Number(second),
-        String(timetip),
-        Boolean(brieftime)
-    */
+
     await createNewWidget(addWidgetType.value, customData)
     addCardDialogIsOpen.value = false
 }
@@ -75,20 +71,53 @@ const openAddCardDialog = (widgetType: number, customWidgetType?: number) => {
     <mdui-dialog class="add-card-dialog" :open="addCardDialogIsOpen">
         <span slot="headline">添加组件</span>
         <div slot="description" class="add-card-dialog-content">
-            <form class="time-select" id="time-select" @submit="newCardSubmit" ref="timeSelectFrom">
+            <form
+                class="time-select"
+                id="time-select"
+                @submit="newCardSubmit"
+                ref="timeSelectFrom"
+                v-if="addWidgetType != 2"
+            >
                 <mdui-text-field
                     :label="item.showName"
                     :name="item.name"
                     :type="item.type"
                     clearable
                     :required="item.isRequired"
-                    v-for="item in widgetConfig[addWidgetType.toString()].items.filter(
+                    v-for="item in widgetConfig[addWidgetType].items.filter(
                         (item) => item.type != 'boolean',
                     )"
                 ></mdui-text-field>
                 <div
                     class="time-select-switch"
-                    v-for="item in widgetConfig[addWidgetType.toString()].items.filter(
+                    v-for="item in widgetConfig[addWidgetType].items.filter(
+                        (item) => item.type == 'boolean',
+                    )"
+                >
+                    <mdui-switch :name="item.name"></mdui-switch>
+                    <span class="time-select-switch-text">{{ item.showName }}</span>
+                </div>
+            </form>
+            <form
+                class="time-select"
+                id="time-select"
+                @submit="newCardSubmit"
+                ref="timeSelectFrom"
+                v-else
+            >
+                <mdui-text-field
+                    :label="item.showName"
+                    :name="item.name"
+                    :type="item.type"
+                    clearable
+                    :required="item.isRequired"
+                    v-for="item in pluginWidgetConfig[addCustomWidgetType].items.filter(
+                        (item) => item.type != 'boolean',
+                    )"
+                ></mdui-text-field>
+                <div
+                    class="time-select-switch"
+                    v-for="item in pluginWidgetConfig[addCustomWidgetType].items.filter(
                         (item) => item.type == 'boolean',
                     )"
                 >
@@ -111,9 +140,6 @@ const openAddCardDialog = (widgetType: number, customWidgetType?: number) => {
     </mdui-dialog>
 </template>
 <style lang="css" scoped>
-#setting-add {
-}
-
 .setting-title {
     margin: 0;
 }

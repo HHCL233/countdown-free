@@ -28,8 +28,9 @@ export interface WidgetConfigItem {
     isRequired: boolean
 }
 
-export type WidgetConfig = {
-    [type: string]: {
+export type WidgetConfig = Record<
+    number,
+    {
         items: WidgetConfigItem[]
     }
-}
+>

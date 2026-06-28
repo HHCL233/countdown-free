@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { CircularProgress } from 'mdui'
-import { onMounted, onUnmounted, ref } from 'vue'
+import { onUnmounted, ref } from 'vue'
 
 const minute = ref(0)
 const second = ref(0)

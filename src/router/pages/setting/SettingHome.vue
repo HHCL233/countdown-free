@@ -1,6 +1,4 @@
-<script setup lang="ts">
-import { ref } from 'vue'
-</script>
+<script setup lang="ts"></script>
 <template>
     <div id="setting-home">
         <h1 class="setting-title">主页</h1>
@@ -8,9 +6,6 @@ import { ref } from 'vue'
     </div>
 </template>
 <style lang="css" scoped>
-#setting-home {
-}
-
 .setting-title {
     margin: 0;
 }

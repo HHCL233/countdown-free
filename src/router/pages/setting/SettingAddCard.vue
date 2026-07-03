@@ -145,11 +145,14 @@ const openAddCardDialog = (widgetType: number, customWidgetType?: number) => {
 }
 
 .setting-add {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
     gap: 8px;
     margin-top: 24px;
     margin-bottom: 24px;
+    grid-template-columns: repeat(auto-fill, 240px);
+}
+
+.setting-add-divider {
 }
 
 .setting-add-card {

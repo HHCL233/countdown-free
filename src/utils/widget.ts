@@ -19,12 +19,7 @@ export async function createNewWidget(widgetId = 0, param = {}) {
         param: {
             ...param,
         },
-    } /*
-    deadline: Date.now() + time * 1000,
-            timetip: timetip,
-            briefTime: brieftime,
-            startTimestamp: Date.now(),
-            */
+    }
 
     const win = new WebviewWindow(label, {
         url: `/#/widget/${widgetId}`,

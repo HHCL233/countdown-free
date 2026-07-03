@@ -2,7 +2,7 @@ import { PluginManager } from './plugin'
 import { useRoute, useRouter } from 'vue-router'
 import { useCardDataStore } from '../stores/cardData'
 import { useAppStore } from '../stores/app'
-import { denySave } from '@tauri-store/pinia'
+import { denySave, allowSave, denySync } from '@tauri-store/pinia'
 import { platform, version, arch } from '@tauri-apps/plugin-os'
 import { sendNormalNotification } from './notification'
 import { getCurrentWebviewWindow } from '@tauri-apps/api/webviewWindow'
@@ -51,9 +51,8 @@ export async function runInitWindow() {
     pluginManager = null
 
     await cardData.$tauri.start()
-    await denySave('cardData')
-
     await appStore.$tauri.start()
-
-    cardData.customCardDatas = []
+    await newWidgetStore.$tauri.start()
+    await denySave('cardData')
+    await allowSave('appStore')
 }

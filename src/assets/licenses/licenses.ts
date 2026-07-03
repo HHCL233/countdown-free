@@ -1,9 +1,9 @@
 export default [
     {
-        "name": "@m3e/web",
-        "license": "MIT",
-        "url": "https://github.com/matraic/m3e",
-        "content": `MIT License
+        name: '@m3e/web',
+        license: 'MIT',
+        url: 'https://github.com/matraic/m3e',
+        content: `MIT License
 
 Copyright (c) 2025–2026 matraic
 
@@ -23,13 +23,13 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.`
+SOFTWARE.`,
     },
     {
-        "name": "@tauri-apps/api",
-        "license": "Apache-2.0 OR MIT",
-        "url": "https://github.com/tauri-apps/tauri",
-        "content": `MIT License
+        name: '@tauri-apps/api',
+        license: 'Apache-2.0 OR MIT',
+        url: 'https://github.com/tauri-apps/tauri',
+        content: `MIT License
 
 Copyright (c) 2017 - Present Tauri Apps Contributors
 
@@ -225,13 +225,13 @@ SOFTWARE.
       incurred by, or claims asserted against, such Contributor by reason
       of your accepting any such warranty or additional liability.
 
-   END OF TERMS AND CONDITIONS`
+   END OF TERMS AND CONDITIONS`,
     },
     {
-        "name": "@tauri-apps/cli",
-        "license": "Apache-2.0 OR MIT",
-        "url": "https://github.com/tauri-apps/tauri",
-        "content": `MIT License
+        name: '@tauri-apps/cli',
+        license: 'Apache-2.0 OR MIT',
+        url: 'https://github.com/tauri-apps/tauri',
+        content: `MIT License
 
 Copyright (c) 2017 - Present Tauri Apps Contributors
 
@@ -427,13 +427,13 @@ SOFTWARE.
       incurred by, or claims asserted against, such Contributor by reason
       of your accepting any such warranty or additional liability.
 
-   END OF TERMS AND CONDITIONS`
+   END OF TERMS AND CONDITIONS`,
     },
     {
-        "name": "@tauri-apps/plugin-autostart",
-        "license": "MIT OR Apache-2.0",
-        "url": "https://github.com/tauri-apps/plugins-workspace",
-        "content": `                                 Apache License
+        name: '@tauri-apps/plugin-autostart',
+        license: 'MIT OR Apache-2.0',
+        url: 'https://github.com/tauri-apps/plugins-workspace',
+        content: `                                 Apache License
                            Version 2.0, January 2004
                         http://www.apache.org/licenses/
 
@@ -630,13 +630,13 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.`
+SOFTWARE.`,
     },
     {
-        "name": "@tauri-apps/plugin-deep-link",
-        "license": "MIT OR Apache-2.0",
-        "url": "https://github.com/tauri-apps/plugins-workspace",
-        "content": `                                 Apache License
+        name: '@tauri-apps/plugin-deep-link',
+        license: 'MIT OR Apache-2.0',
+        url: 'https://github.com/tauri-apps/plugins-workspace',
+        content: `                                 Apache License
                            Version 2.0, January 2004
                         http://www.apache.org/licenses/
 
@@ -833,13 +833,13 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.`
+SOFTWARE.`,
     },
     {
-        "name": "@tauri-apps/plugin-notification",
-        "license": "MIT OR Apache-2.0",
-        "url": "https://github.com/tauri-apps/plugins-workspace",
-        "content": `                                 Apache License
+        name: '@tauri-apps/plugin-notification',
+        license: 'MIT OR Apache-2.0',
+        url: 'https://github.com/tauri-apps/plugins-workspace',
+        content: `                                 Apache License
                            Version 2.0, January 2004
                         http://www.apache.org/licenses/
 
@@ -1036,13 +1036,13 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.`
+SOFTWARE.`,
     },
     {
-        "name": "@tauri-apps/plugin-opener",
-        "license": "MIT OR Apache-2.0",
-        "url": "https://github.com/tauri-apps/plugins-workspace",
-        "content": `                                 Apache License
+        name: '@tauri-apps/plugin-opener',
+        license: 'MIT OR Apache-2.0',
+        url: 'https://github.com/tauri-apps/plugins-workspace',
+        content: `                                 Apache License
                            Version 2.0, January 2004
                         http://www.apache.org/licenses/
 
@@ -1239,13 +1239,13 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.`
+SOFTWARE.`,
     },
     {
-        "name": "@tauri-apps/plugin-process",
-        "license": "MIT OR Apache-2.0",
-        "url": "https://github.com/tauri-apps/plugins-workspace",
-        "content": `                                 Apache License
+        name: '@tauri-apps/plugin-process',
+        license: 'MIT OR Apache-2.0',
+        url: 'https://github.com/tauri-apps/plugins-workspace',
+        content: `                                 Apache License
                            Version 2.0, January 2004
                         http://www.apache.org/licenses/
 
@@ -1442,13 +1442,13 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.`
+SOFTWARE.`,
     },
     {
-        "name": "@tauri-store/pinia",
-        "license": "MIT",
-        "url": "https://github.com/ferreira-tb/tauri-store",
-        "content": `MIT License
+        name: '@tauri-store/pinia',
+        license: 'MIT',
+        url: 'https://github.com/ferreira-tb/tauri-store',
+        content: `MIT License
 
 Copyright (c) 2025 Andrew Ferreira <andrew.shien2@gmail.com>
 
@@ -1468,13 +1468,13 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.`
+SOFTWARE.`,
     },
     {
-        "name": "@vitejs/plugin-vue",
-        "license": "MIT",
-        "url": "https://github.com/vitejs/vite-plugin-vue",
-        "content": `MIT License
+        name: '@vitejs/plugin-vue',
+        license: 'MIT',
+        url: 'https://github.com/vitejs/vite-plugin-vue',
+        content: `MIT License
 
 Copyright (c) 2019-present, Yuxi (Evan) You and Vite contributors
 
@@ -1494,13 +1494,13 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.`
+SOFTWARE.`,
     },
     {
-        "name": "license-checker",
-        "license": "BSD-3-Clause",
-        "url": "https://github.com/davglass/license-checker",
-        "content": `Copyright 2012 Yahoo Inc.
+        name: 'license-checker',
+        license: 'BSD-3-Clause',
+        url: 'https://github.com/davglass/license-checker',
+        content: `Copyright 2012 Yahoo Inc.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
@@ -1523,13 +1523,13 @@ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
 ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-`
+`,
     },
     {
-        "name": "mdui",
-        "license": "MIT",
-        "url": "https://github.com/davglass/license-checker",
-        "content": `The MIT License (MIT)
+        name: 'mdui',
+        license: 'MIT',
+        url: 'https://github.com/davglass/license-checker',
+        content: `The MIT License (MIT)
 
 Copyright (c) 2016-present zdhxiong@gmail.com
 
@@ -1549,13 +1549,13 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.`
+SOFTWARE.`,
     },
     {
-        "name": "pinia",
-        "license": "MIT",
-        "url": "https://github.com/vuejs/pinia",
-        "content": `The MIT License (MIT)
+        name: 'pinia',
+        license: 'MIT',
+        url: 'https://github.com/vuejs/pinia',
+        content: `The MIT License (MIT)
 
 Copyright (c) 2019-present Eduardo San Martin Morote
 
@@ -1575,13 +1575,13 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.`
+SOFTWARE.`,
     },
     {
-        "name": "typescript",
-        "license": "Apache-2.0",
-        "url": "https://github.com/microsoft/TypeScript",
-        "content": `Apache License
+        name: 'typescript',
+        license: 'Apache-2.0',
+        url: 'https://github.com/microsoft/TypeScript',
+        content: `Apache License
 
 Version 2.0, January 2004
 
@@ -1635,13 +1635,13 @@ If the Work includes a "NOTICE" text file as part of its distribution, then any 
 
 9. Accepting Warranty or Additional Liability. While redistributing the Work or Derivative Works thereof, You may choose to offer, and charge a fee for, acceptance of support, warranty, indemnity, or other liability obligations and/or rights consistent with this License. However, in accepting such obligations, You may act only on Your own behalf and on Your sole responsibility, not on behalf of any other Contributor, and only if You agree to indemnify, defend, and hold each Contributor harmless for any liability incurred by, or claims asserted against, such Contributor by reason of your accepting any such warranty or additional liability.
 
-END OF TERMS AND CONDITIONS`
+END OF TERMS AND CONDITIONS`,
     },
     {
-        "name": "uuid",
-        "license": "MIT",
-        "url": "https://github.com/uuidjs/uuid",
-        "content": `The MIT License (MIT)
+        name: 'uuid',
+        license: 'MIT',
+        url: 'https://github.com/uuidjs/uuid',
+        content: `The MIT License (MIT)
 
 Copyright (c) 2010-2020 Robert Kieffer and other contributors
 
@@ -1649,13 +1649,13 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.`
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.`,
     },
     {
-        "name": "vite",
-        "license": "MIT",
-        "url": "https://github.com/vitejs/vite",
-        "content": `MIT License
+        name: 'vite',
+        license: 'MIT',
+        url: 'https://github.com/vitejs/vite',
+        content: `MIT License
 
 Copyright (c) 2019-present, VoidZero Inc. and Vite contributors
 
@@ -1675,13 +1675,13 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.`
+SOFTWARE.`,
     },
     {
-        "name": "vue-router",
-        "license": "MIT",
-        "url": "https://github.com/vuejs/router",
-        "content": `The MIT License (MIT)
+        name: 'vue-router',
+        license: 'MIT',
+        url: 'https://github.com/vuejs/router',
+        content: `The MIT License (MIT)
 
 Copyright (c) 2019-present Eduardo San Martin Morote
 
@@ -1701,13 +1701,13 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.`
+SOFTWARE.`,
     },
     {
-        "name": "vue-tsc",
-        "license": "MIT",
-        "url": "https://github.com/vuejs/language-tools",
-        "content": `MIT License
+        name: 'vue-tsc',
+        license: 'MIT',
+        url: 'https://github.com/vuejs/language-tools',
+        content: `MIT License
 
 Copyright (c) 2021-present Johnson Chu
 
@@ -1727,13 +1727,13 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.`
+SOFTWARE.`,
     },
     {
-        "name": "vue",
-        "license": "MIT",
-        "url": "https://github.com/vuejs/language-tools",
-        "content": `The MIT License (MIT)
+        name: 'vue',
+        license: 'MIT',
+        url: 'https://github.com/vuejs/language-tools',
+        content: `The MIT License (MIT)
 
 Copyright (c) 2018-present, Yuxi (Evan) You and Vue contributors
 
@@ -1753,6 +1753,32 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.`
-    }
+THE SOFTWARE.`,
+    },
+    {
+        name: '@vueuse/core',
+        license: 'MIT',
+        url: 'https://github.com/vueuse/vueuse',
+        content: `MIT License
+
+Copyright (c) 2019-PRESENT Anthony Fu<https://github.com/antfu>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.`,
+    },
 ]

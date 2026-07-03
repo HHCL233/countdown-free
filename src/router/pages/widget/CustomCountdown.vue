@@ -1,16 +1,19 @@
 <script setup lang="ts">
-import { watch, ref, defineAsyncComponent, computed } from 'vue'
+// @ts-expect-error
+import { loadModule } from 'vue3-sfc-loader'
+import { watch, ref, defineAsyncComponent, computed, toRaw } from 'vue'
 import { useCardDataStore } from '../../../stores/cardData'
 import { useWindow } from '../../../utils/window'
 import { WebviewWindow } from '@tauri-apps/api/webviewWindow'
-import { loadModule } from 'vue3-sfc-loader'
 import * as Vue from 'vue'
 import { closeWidget } from '../../../utils/widget'
+import { useNewWidgetStore } from '../../../stores/newWidget'
 
 const cardDataStore = useCardDataStore()
 const currentWindow = WebviewWindow.getCurrent()
 const currentCardData = computed(() => cardDataStore?.allCardData[currentWindow.label])
-const customCardData = computed(() => currentCardData?.value?.param?.customWidget)
+const customCardData = computed(() => currentCardData?.value?.param?._customWidget)
+const customCardComponent = computed(() => customCardData?.value?.component)
 const showMainWindow = ref<() => Promise<void>>()
 const isDragMode = ref(false)
 
@@ -24,9 +27,9 @@ const initWindow = async () => {
 initWindow()
 
 const stopWatch = watch(
-    currentCardData,
+    customCardComponent,
     async () => {
-        load(cardDataStore?.customCardDatas[customCardData.value ?? 0]?.component)
+        await load(customCardComponent.value)
         stopWatch()
     },
     { deep: true },
@@ -48,7 +51,12 @@ const load = async (content: string) => {
     }
 
     // 加载远程组件
-    remote.value = defineAsyncComponent(() => loadModule('custom-widget.vue', options))
+    remote.value = defineAsyncComponent(() =>
+        loadModule('custom-widget.vue', options).catch((err: any) => {
+            console.error('vue3-sfc-loader 加载失败，具体原因:', err)
+            throw err
+        }),
+    )
 }
 </script>
 <template>

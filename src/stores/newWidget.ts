@@ -1,11 +1,13 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { WidgetConfig } from '../type/cardData'
+import { WidgetConfig, PluginWidgetConfig } from '../type/cardData'
 
 export const useNewWidgetStore = defineStore('newWidget', () => {
     // 存放自带组件参数信息
     const vanillaWidget = ref<WidgetConfig>({
         0: {
+            name: '基础倒计时',
+            tooltip: '使用环形倒计时提醒自己',
             items: [
                 {
                     name: 'hour',
@@ -40,6 +42,8 @@ export const useNewWidgetStore = defineStore('newWidget', () => {
             ],
         },
         1: {
+            name: '环形倒计时',
+            tooltip: '使用环形倒计时提醒自己',
             items: [
                 {
                     name: 'hour',
@@ -75,12 +79,15 @@ export const useNewWidgetStore = defineStore('newWidget', () => {
             ],
         },
         2: {
+            name: '自定义组件',
+            tooltip: '这可能是个愚蠢的计划',
+            isHind: true,
             items: [],
         },
     })
 
     // 存放自定义组件参数信息
-    const pluginWidget = ref<WidgetConfig>({})
+    const pluginWidget = ref<PluginWidgetConfig>({})
 
     return { vanillaWidget, pluginWidget }
 })

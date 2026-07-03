@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, nextTick } from 'vue'
 import { createNewWidget } from '../../../utils/widget'
 import AddWidgetCard from '../../../components/setting/addCard/AddWidgetCard.vue'
 import { useCardDataStore } from '../../../stores/cardData.ts'
@@ -21,16 +21,21 @@ const newCardSubmit = async (event: SubmitEvent) => {
     event.preventDefault()
     const timeSelectData = new FormData(timeSelectFrom.value)
 
+    // 只留下需要的字段
     const formObj = Object.fromEntries(timeSelectData.entries())
     const needKeys = widgetConfig.value[addWidgetType.value].items.map((item) => item.name)
     const formKeys = pick(formObj, needKeys)
 
     const customData: AnyData = { ...formKeys }
     if (addWidgetType.value == 2) {
-        customData.customWidget = addCustomWidgetType
+        customData._customWidget = {
+            id: addCustomWidgetType,
+            component: newWidgetStore.pluginWidget[addCustomWidgetType.value]?.component,
+        }
     }
 
     await createNewWidget(addWidgetType.value, customData)
+    await nextTick()
     addCardDialogIsOpen.value = false
 }
 
@@ -55,10 +60,10 @@ const openAddCardDialog = (widgetType: number, customWidgetType?: number) => {
                 @click="openAddCardDialog(1)"
             />
             <AddWidgetCard
-                v-for="customCardData in cardDataStore.customCardDatas"
+                v-for="(customCardData, index) in pluginWidgetConfig"
                 :name="customCardData.name"
                 :tooltip="customCardData.tooltip"
-                @click="openAddCardDialog(2, cardDataStore.customCardDatas.indexOf(customCardData))"
+                @click="openAddCardDialog(2, Number(index))"
             />
             <mdui-tooltip placement="bottom" content="暂未开放">
                 <mdui-card clickable class="setting-add-card" disabled>
@@ -74,55 +79,50 @@ const openAddCardDialog = (widgetType: number, customWidgetType?: number) => {
             <form
                 class="time-select"
                 id="time-select"
-                @submit="newCardSubmit"
+                @submit.prevent="newCardSubmit"
                 ref="timeSelectFrom"
-                v-if="addWidgetType != 2"
             >
-                <mdui-text-field
-                    :label="item.showName"
-                    :name="item.name"
-                    :type="item.type"
-                    clearable
-                    :required="item.isRequired"
-                    v-for="item in widgetConfig[addWidgetType].items.filter(
-                        (item) => item.type != 'boolean',
-                    )"
-                ></mdui-text-field>
-                <div
-                    class="time-select-switch"
-                    v-for="item in widgetConfig[addWidgetType].items.filter(
-                        (item) => item.type == 'boolean',
-                    )"
-                >
-                    <mdui-switch :name="item.name"></mdui-switch>
-                    <span class="time-select-switch-text">{{ item.showName }}</span>
+                <div class="time-select" v-if="addWidgetType != 2">
+                    <mdui-text-field
+                        :label="item.showName"
+                        :name="item.name"
+                        :type="item.type"
+                        clearable
+                        :required="item.isRequired"
+                        v-for="item in widgetConfig[addWidgetType].items.filter(
+                            (item) => item.type != 'boolean',
+                        )"
+                    ></mdui-text-field>
+                    <div
+                        class="time-select-switch"
+                        v-for="item in widgetConfig[addWidgetType].items.filter(
+                            (item) => item.type == 'boolean',
+                        )"
+                    >
+                        <mdui-switch :name="item.name"></mdui-switch>
+                        <span class="time-select-switch-text">{{ item.showName }}</span>
+                    </div>
                 </div>
-            </form>
-            <form
-                class="time-select"
-                id="time-select"
-                @submit="newCardSubmit"
-                ref="timeSelectFrom"
-                v-else
-            >
-                <mdui-text-field
-                    :label="item.showName"
-                    :name="item.name"
-                    :type="item.type"
-                    clearable
-                    :required="item.isRequired"
-                    v-for="item in pluginWidgetConfig[addCustomWidgetType].items.filter(
-                        (item) => item.type != 'boolean',
-                    )"
-                ></mdui-text-field>
-                <div
-                    class="time-select-switch"
-                    v-for="item in pluginWidgetConfig[addCustomWidgetType].items.filter(
-                        (item) => item.type == 'boolean',
-                    )"
-                >
-                    <mdui-switch :name="item.name"></mdui-switch>
-                    <span class="time-select-switch-text">{{ item.showName }}</span>
+                <div class="time-select" v-else>
+                    <mdui-text-field
+                        :label="item.showName"
+                        :name="item.name"
+                        :type="item.type"
+                        clearable
+                        :required="item.isRequired"
+                        v-for="item in pluginWidgetConfig[addCustomWidgetType].items.filter(
+                            (item) => item.type != 'boolean',
+                        )"
+                    ></mdui-text-field>
+                    <div
+                        class="time-select-switch"
+                        v-for="item in pluginWidgetConfig[addCustomWidgetType].items.filter(
+                            (item) => item.type == 'boolean',
+                        )"
+                    >
+                        <mdui-switch :name="item.name"></mdui-switch>
+                        <span class="time-select-switch-text">{{ item.showName }}</span>
+                    </div>
                 </div>
             </form>
         </div>

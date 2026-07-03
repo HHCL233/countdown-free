@@ -20,9 +20,12 @@ const devMode = () => {
         <div class="setting-about-info">
             <mdui-list>
                 <mdui-list-subheader>软件信息</mdui-list-subheader>
-                <mdui-list-item @click="devMode()" :active="appState.state.isDev">{{
-                    appState.appName
-                }}</mdui-list-item>
+                <mdui-list-item
+                    @click="devMode()"
+                    :active="appState.state.isDev"
+                    :description="appState.appVersion"
+                    >{{ appState.appName }}</mdui-list-item
+                >
                 <mdui-list-subheader>开源许可证 (不分先后)</mdui-list-subheader>
                 <mdui-collapse accordion>
                     <license-collapse v-for="license in licensesObject" :license="license" />

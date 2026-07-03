@@ -6,6 +6,7 @@ export interface OneCardData {
     x: number
     y: number
     widgetTypeId: number
+    component?: string
     param: {
         [type: string]: any
     }
@@ -31,6 +32,20 @@ export interface WidgetConfigItem {
 export type WidgetConfig = Record<
     number,
     {
+        tooltip: string
+        name: string
+        isHind?: boolean
+        items: WidgetConfigItem[]
+    }
+>
+
+export type PluginWidgetConfig = Record<
+    number,
+    {
+        tooltip: string
+        name: string
+        isHind?: boolean
+        component: string
         items: WidgetConfigItem[]
     }
 >

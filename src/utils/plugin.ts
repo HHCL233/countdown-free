@@ -7,18 +7,15 @@ import { NewWidgetStore } from '../stores/newWidget'
 
 export class PluginManager {
     cardData: CardData
-    cardDataStore: CardDataStore
     router: Router
     newWidgetStore: NewWidgetStore
     constructor(cardDataStore: CardDataStore, router: Router, newWidgetStore: NewWidgetStore) {
-        this.cardDataStore = cardDataStore
         this.cardData = cardDataStore.allCardData
         this.router = router
         this.newWidgetStore = newWidgetStore
     }
 
     initAPI() {
-        this.cardDataStore.customCardDatas = []
         window.countdownFreeAPI = {
             plugin: [],
             tools: {
@@ -38,15 +35,13 @@ export class PluginManager {
                     const pluginWidgetObjectLength = Object.values(
                         this.newWidgetStore.pluginWidget,
                     ).length
-                    this.newWidgetStore.pluginWidget[pluginWidgetObjectLength] = {
-                        items: widgetParam,
-                    }
 
-                    this.cardDataStore.customCardDatas.push({
+                    this.newWidgetStore.pluginWidget[pluginWidgetObjectLength] = {
+                        items: JSON.parse(JSON.stringify(widgetParam)),
                         name: widgetShowName,
-                        tooltip: `使用${widgetShowName}提醒自己`,
                         component: widgetComponent,
-                    })
+                        tooltip: `使用${widgetShowName}提醒自己`,
+                    }
 
                     return { success: true, msg: `创建路由成功` }
                 },

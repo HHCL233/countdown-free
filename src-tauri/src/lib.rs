@@ -4,6 +4,7 @@ use tauri::{
     tray::TrayIconBuilder,
 };
 use tauri::{Manager, WebviewWindow};
+use std::env;
 
 #[tauri::command]
 fn greet(name: &str) -> String {
@@ -12,6 +13,9 @@ fn greet(name: &str) -> String {
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
+    // 使用自定义滚动条
+    env::set_var("GTK_OVERLAY_SCROLLING", "0");
+    
     tauri::Builder::default()
         .plugin(tauri_plugin_os::init())
         .plugin(tauri_plugin_fs::init())

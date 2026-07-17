@@ -8,8 +8,25 @@ import { sendNormalNotification } from './notification'
 import { getCurrentWebviewWindow } from '@tauri-apps/api/webviewWindow'
 import { useNewWidgetStore } from '../stores/newWidget'
 
+import { alert } from 'mdui/functions/alert.js'
+
 export async function runInit() {
-    const webviewWindow = getCurrentWebviewWindow()
+    // 检测是否为Tauri环境
+    let webviewWindow = null
+    try {
+        webviewWindow = getCurrentWebviewWindow()
+    } catch (error) {
+        alert({
+            headline: '警告',
+            description: '此网站不支持在浏览器环境下运行！',
+            confirmText: '关闭',
+            onConfirm: () => window.close(),
+        })
+
+        throw new Error('不处于Tauri环境下!')
+    }
+
+    if (!webviewWindow) return
 
     if (webviewWindow.label != 'main') {
         await runInitWindow()
@@ -52,7 +69,6 @@ export async function runInitWindow() {
 
     await cardData.$tauri.start()
     await appStore.$tauri.start()
-    await newWidgetStore.$tauri.start()
     await denySave('cardData')
     await allowSave('appStore')
 }

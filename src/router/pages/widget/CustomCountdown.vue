@@ -7,7 +7,6 @@ import { useWindow } from '../../../utils/window'
 import { WebviewWindow } from '@tauri-apps/api/webviewWindow'
 import * as Vue from 'vue'
 import { closeWidget } from '../../../utils/widget'
-import { useNewWidgetStore } from '../../../stores/newWidget'
 
 const cardDataStore = useCardDataStore()
 const currentWindow = WebviewWindow.getCurrent()

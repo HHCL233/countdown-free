@@ -114,5 +114,7 @@ h6 {
 * {
     user-select: none;
     -webkit-user-select: none;
+    scrollbar-width: thin;
+    scrollbar-color: rgb(var(--mdui-color-primary)) transparent;
 }
 </style>

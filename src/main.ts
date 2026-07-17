@@ -15,7 +15,7 @@ const app = createApp(App)
 
 pinia.use(
     createPlugin({
-        autoStart: true,
+        autoStart: false,
     }),
 )
 

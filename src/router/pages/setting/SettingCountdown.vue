@@ -93,11 +93,9 @@ onUnmounted(() => {
 <style lang="css" scoped>
 #setting-countdown {
     position: relative;
+    width: 100%;
     height: 100%;
-}
-
-.setting-title {
-    margin: 0;
+    overflow: hidden;
 }
 
 .setting-dashboard {

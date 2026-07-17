@@ -9,8 +9,10 @@ const props = defineProps<{
     <mdui-collapse-item>
         <mdui-list-item slot="header" end-icon="arrow_drop_down">{{ license.name }}</mdui-list-item>
         <div class="collapse-item-content">
-            <mdui-list-item>{{ license.url }}</mdui-list-item>
-            <mdui-list-item>{{ license.content }}</mdui-list-item>
+            <div>
+                <mdui-list-item>{{ license.url }}</mdui-list-item>
+                <mdui-list-item>{{ license.content }}</mdui-list-item>
+            </div>
         </div>
     </mdui-collapse-item>
 </template>

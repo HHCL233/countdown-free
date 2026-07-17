@@ -11,7 +11,6 @@ const timeSelectFrom = ref<HTMLFormElement | null>(null)
 const addCardDialogIsOpen = ref(false)
 const addWidgetType = ref(0)
 const addCustomWidgetType = ref(0)
-const cardDataStore = useCardDataStore()
 const newWidgetStore = useNewWidgetStore()
 const widgetConfig = computed(() => newWidgetStore.vanillaWidget)
 const pluginWidgetConfig = computed(() => newWidgetStore.pluginWidget)
@@ -50,19 +49,16 @@ const openAddCardDialog = (widgetType: number, customWidgetType?: number) => {
         <h1 class="setting-title">添加组件</h1>
         <div class="setting-add">
             <AddWidgetCard
-                name="基础倒计时"
-                tooltip="使用基础倒计时提醒自己"
-                @click="openAddCardDialog(0)"
+                v-for="(vanillaWidgetData, index) in widgetConfig"
+                :name="vanillaWidgetData.name"
+                :tooltip="vanillaWidgetData.tooltip"
+                v-show="!vanillaWidgetData.isHind"
+                @click="openAddCardDialog(Number(index))"
             />
             <AddWidgetCard
-                name="环形倒计时"
-                tooltip="使用环形倒计时提醒自己"
-                @click="openAddCardDialog(1)"
-            />
-            <AddWidgetCard
-                v-for="(customCardData, index) in pluginWidgetConfig"
-                :name="customCardData.name"
-                :tooltip="customCardData.tooltip"
+                v-for="(customWidgetData, index) in pluginWidgetConfig"
+                :name="customWidgetData.name"
+                :tooltip="customWidgetData.tooltip"
                 @click="openAddCardDialog(2, Number(index))"
             />
             <mdui-tooltip placement="bottom" content="暂未开放">
@@ -140,10 +136,6 @@ const openAddCardDialog = (widgetType: number, customWidgetType?: number) => {
     </mdui-dialog>
 </template>
 <style lang="css" scoped>
-.setting-title {
-    margin: 0;
-}
-
 .setting-add {
     display: grid;
     gap: 8px;

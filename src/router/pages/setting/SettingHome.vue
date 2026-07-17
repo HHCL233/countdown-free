@@ -6,10 +6,6 @@
     </div>
 </template>
 <style lang="css" scoped>
-.setting-title {
-    margin: 0;
-}
-
 .setting-suggest {
     display: flex;
     flex-wrap: wrap;

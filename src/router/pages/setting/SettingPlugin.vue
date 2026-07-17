@@ -10,11 +10,15 @@ const pluginsArray = ref(window.countdownFreeAPI.plugin)
                 <mdui-collapse accordion>
                     <mdui-collapse-item v-for="plugin in pluginsArray">
                         <mdui-list-item slot="header" end-icon="arrow_drop_down">
-                            {{ plugin.name }}
-                            <span slot="description">{{ plugin.author }}</span>
+                            {{ plugin.name ?? '' }}
+                            <span slot="description">{{ plugin.author ?? '' }}</span>
                         </mdui-list-item>
                         <div class="collapse-item-content">
-                            <mdui-list-item disabled>暂无操作</mdui-list-item>
+                            <mdui-list-item>介绍: {{ plugin.description ?? '' }}</mdui-list-item>
+                            <mdui-list-item
+                                >远程仓库: {{ plugin.repository ?? '无' }}</mdui-list-item
+                            >
+                            <mdui-list-item>许可证: {{ plugin.license ?? '无' }}</mdui-list-item>
                             <!--
                             <mdui-list-item>打开目录</mdui-list-item>
                             <mdui-list-item v-if="plugin.repository">打开仓库</mdui-list-item>
@@ -39,10 +43,6 @@ const pluginsArray = ref(window.countdownFreeAPI.plugin)
 </template>
 <style lang="css" scoped>
 #setting-plugin {
-}
-
-.setting-title {
-    margin: 0;
 }
 
 .setting-plugin-info {
